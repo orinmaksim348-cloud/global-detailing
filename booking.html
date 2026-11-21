@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Онлайн-бронирование визита | Глобал Детейлинг Краснодар</title>
+  <meta name="description"
+    content="Онлайн-запись в детейлинг-центр «Глобал Детейлинг»: ремонт автостёкол, полировка кузова, оклейка бронеплёнкой. Выберите дату и время.">
+
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Unbounded:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="inner-page-body">
+
+  <div id="scrollProgress" aria-hidden="true"></div>
+  <div class="ambient-glow glow-red" aria-hidden="true"></div>
+  <div class="ambient-glow glow-graphite" aria-hidden="true"></div>
+  <div class="technical-grid-overlay" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="site-header" id="header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo-wrap">
+        <img src="assets/logo.jpg" alt="GLBL Detailing" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">ГЛОБАЛ</span>
+          <span class="brand-sub">ДЕТЕЙЛИНГ</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="index.html#about" class="nav-link">О студии</a>
+        <a href="index.html#packages" class="nav-link">Услуги</a>
+        <a href="index.html#transformation" class="nav-link">До / После</a>
+        <a href="calculator.html" class="nav-link">Калькулятор</a>
+        <a href="gallery.html" class="nav-link">Портфолио</a>
+        <a href="booking.html" class="nav-link active">Бронирование</a>
+        <a href="index.html#contacts" class="nav-link">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+79528222243" class="phone-link">
+          <i class="fa-solid fa-phone"></i>
+          <span>+7 (952) 822-22-43</span>
+        </a>
+        <a href="https://t.me/glbl_detailing" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+          <i class="fa-brands fa-telegram"></i> Telegram
+        </a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Меню навигации" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BOOKING PAGE CONTENT -->
+  <main class="page-content-wrapper">
+    <div class="container">
+
+      <div class="page-heading-block">
+        <div class="section-badge">Онлайн-запись</div>
+        <h1 class="page-main-title">ЗАБРОНИРУЙТЕ ДАТУ И ВРЕМЯ <br><span class="glbl-gradient-text">ВИЗИТА В
+            ДЕТЕЙЛИНГ-СТУДИЮ</span></h1>
+        <p class="section-subtitle">
+          Заполните параметры визита в бокс на проспекте Чекистов, 46Б. Мастер Никита свяжется с вами для подтверждения
+          брони.
+        </p>
+      </div>
+
+      <div class="booking-page-card">
+        <div class="prefill-notice-banner" id="prefillNoticeBanner" style="display: none;"></div>
+
+        <form class="multistep-booking-form" id="mainBookingForm">
+
+          <!-- Step 1: Service Category Selection -->
+          <div class="booking-form-section">
+            <h3 class="form-section-title"><i class="fa-solid fa-list-check"></i> 1. Выберите требуемую услугу:</h3>
+            <div class="service-select-pills">
+              <label class="service-radio-card">
+                <input type="radio" name="book_service" value="Ремонт автостёкол (сколы / трещины)" checked>
+                <div class="radio-card-content">
+                  <span class="rc-title">Ремонт автостёкол</span>
+                  <span class="rc-desc">Устранение сколов, трещин, сохранение датчиков</span>
+                </div>
+              </label>
+
+              <label class="service-radio-card">
+                <input type="radio" name="book_service" value="Восстановительная полировка кузова">
+                <div class="radio-card-content">
+                  <span class="rc-title">Полировка кузова</span>
+                  <span class="rc-desc">Удаление паутинки, царапин, мокрый глянец</span>
+                </div>
+              </label>
+
+              <label class="service-radio-card">
+                <input type="radio" name="book_service" value="Бронирование кузова плёнкой (PPF)">
+                <div class="radio-card-content">
+                  <span class="rc-title">Оклейка бронеплёнкой</span>
+                  <span class="rc-desc">Защита зон риска или кузова полиуретаном</span>
+                </div>
+              </label>
+
+              <label class="service-radio-card">
+                <input type="radio" name="book_service" value="Полировка и бронирование фар">
+                <div class="radio-card-content">
+                  <span class="rc-title">Полировка и оклейка фар</span>
+                  <span class="rc-desc">Устранение желтизны + полиуретановая броня</span>
+                </div>
+              </label>
+
+              <label class="service-radio-card">
+                <input type="radio" name="book_service" value="Комплексная химчистка салона">
+                <div class="radio-card-content">
+                  <span class="rc-title">Химчистка интерьера</span>
+                  <span class="rc-desc">Глубокая очистка кожи, текстиля и озонирование</span>
+                </div>
+              </label>
+
+              <label class="service-radio-card">
+                <input type="radio" name="book_service" value="Антихром / Стайлинг / Другое">
+                <div class="radio-card-content">
+                  <span class="rc-title">Антихром / Стайлинг</span>
+                  <span class="rc-desc">Shadow Line, ламинация карбоном, тонировка</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 2: Car Details -->
+          <div class="booking-form-section">
+            <h3 class="form-section-title"><i class="fa-solid fa-car"></i> 2. Данные автомобиля:</h3>
+            <div class="booking-inputs-grid">
+              <div class="form-group">
+                <label for="carMakeModel">Марка и модель автомобиля *</label>
+                <input type="text" id="carMakeModel" class="form-input" placeholder="Например: BMW 5 / M5 G30" required>
+              </div>
+              <div class="form-group">
+                <label for="carColorYear">Год выпуска / Цвет (необязательно)</label>
+                <input type="text" id="carColorYear" class="form-input" placeholder="Например: 2021, Белый">
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Preferred Date and Time Slot -->
+          <div class="booking-form-section">
+            <h3 class="form-section-title"><i class="fa-solid fa-clock"></i> 3. Желаемая дата и время:</h3>
+            <div class="booking-inputs-grid">
+              <div class="form-group">
+                <label for="bookVisitDate">Дата визита *</label>
+                <input type="date" id="bookVisitDate" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label>Удобное время заезда в бокс *</label>
+                <div class="time-slots-row">
+                  <button type="button" class="slot-btn active" data-time="10:00">10:00</button>
+                  <button type="button" class="slot-btn" data-time="12:00">12:00</button>
+                  <button type="button" class="slot-btn" data-time="14:00">14:00</button>
+                  <button type="button" class="slot-btn" data-time="16:00">16:00</button>
+                  <button type="button" class="slot-btn" data-time="18:00">18:00</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Contact Info -->
+          <div class="booking-form-section">
+            <h3 class="form-section-title"><i class="fa-solid fa-user"></i> 4. Ваши контакты:</h3>
+            <div class="booking-inputs-grid">
+              <div class="form-group">
+                <label for="clientName">Ваше имя *</label>
+                <input type="text" id="clientName" class="form-input" placeholder="Как к вам обращаться" required>
+              </div>
+              <div class="form-group">
+                <label for="clientPhone">Телефон для связи *</label>
+                <input type="tel" id="clientPhone" class="form-input" placeholder="+7 (999) 000-00-00" required>
+              </div>
+            </div>
+            <div class="form-group mt-16">
+              <label for="clientNotes">Дополнительные пожелания или описание скола/повреждения:</label>
+              <textarea id="clientNotes" class="form-textarea" rows="3"
+                placeholder="Укажите место трещины, скола или особенности ЛКП..."></textarea>
+            </div>
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="booking-submit-bar">
+            <button type="submit" class="btn btn-lg btn-brand">
+              <i class="fa-brands fa-whatsapp"></i> Подтвердить запись в WhatsApp
+            </button>
+            <button type="button" id="bookingTelegramBtn" class="btn btn-lg btn-tg">
+              <i class="fa-brands fa-telegram"></i> Записаться через Telegram
+            </button>
+            <div class="booking-security-note">
+              <i class="fa-solid fa-shield-halved"></i> Приём автомобилей строго по записи без очередей. Бокс на
+              Чекистов, 46Б.
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-col">
+        <div class="brand-logo-wrap">
+          <img src="assets/logo.jpg" alt="GLBL Detailing" class="brand-logo-img">
+          <div class="brand-text">
+            <span class="brand-name">ГЛОБАЛ</span>
+            <span class="brand-sub">ДЕТЕЙЛИНГ</span>
+          </div>
+        </div>
+        <p class="footer-text">
+          Студия профессионального детейлинга и автостёкол в Краснодаре. Юбилейный микрорайон, проспект Чекистов, 46Б.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Разделы сайта</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="index.html#about">О нас</a></li>
+          <li><a href="index.html#packages">Услуги</a></li>
+          <li><a href="index.html#transformation">До / После</a></li>
+          <li><a href="calculator.html">Калькулятор</a></li>
+          <li><a href="gallery.html">Портфолио</a></li>
+          <li><a href="booking.html">Онлайн-бронирование</a></li>
+          <li><a href="index.html#contacts">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <p class="footer-contact"><i class="fa-solid fa-location-dot"></i> Краснодар, пр-т Чекистов, 46Б</p>
+        <p class="footer-contact"><i class="fa-solid fa-phone"></i> +7 (952) 822-22-43</p>
+        <p class="footer-contact"><i class="fa-solid fa-clock"></i> Ежедневно: 10:00 – 21:00</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <span>© 2026 «Глобал Детейлинг» (GLBL). Все права защищены.</span>
+        <span>Краснодар, Юбилейный мкр, проспект Чекистов, 46Б.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

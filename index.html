@@ -1,0 +1,3122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Глобал Детейлинг (GLBL) — Детейлинг, кузовной ремонт и автостёкла в Краснодаре</title>
+  <meta name="description" content="Студия «Глобал Детейлинг» (GLBL) в Краснодаре: ремонт сколов и трещин на стекле, полировка и шлифовка стёкол, антидождь, полировка кузова и нанесение керамики. Рейтинг 5,0 • Хорошее место 2026 • пр-т Чекистов, 46Б.">
+
+  <!-- Google Fonts: Unbounded, Manrope, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ==========================================================================
+       GLBL DETAILING — ARCHITECTURAL MOTORSPORT & EDITORIAL MOTION SYSTEM
+       Strict Anti-Neon: zero blur blobs, zero neon glow, zero glassmorphism.
+       ========================================================================== */
+    :root {
+      --dark-base: #0E1218;
+      --dark-elevated: #151B24;
+      --dark-border: rgba(255, 255, 255, 0.10);
+      --dark-border-strong: rgba(255, 255, 255, 0.18);
+
+      --light-base: #F4F3EF;
+      --light-surface: #FFFFFF;
+      --light-border: rgba(14, 18, 24, 0.14);
+
+      --crimson: #A4131E;
+      --crimson-bright: #C81625;
+      --crimson-deep: #780D15;
+      --crimson-hairline: rgba(164, 19, 30, 0.35);
+
+      --ink-light: #F4F3EF;
+      --ink-light-muted: #98A2B3;
+      --ink-dark: #0E1218;
+      --ink-dark-muted: #525B69;
+
+      --font-display: 'Unbounded', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-panel: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--dark-base);
+      color: var(--ink-light);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background-color: var(--dark-base);
+      color: var(--ink-light);
+      line-height: 1.55;
+    }
+
+    .font-display {
+      font-family: var(--font-display);
+      letter-spacing: -0.025em;
+    }
+
+    .font-mono-tech {
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    /* 2px Flat Crimson Scroll Progress Hairline */
+    #scrollProgressBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--crimson-bright);
+      transform-origin: left center;
+      transform: scaleX(0);
+      z-index: 1200;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       1. PRELOADER DIAGONAL WIPE (0.65s)
+       ========================================================================== */
+    .glbl-preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .preloader-half {
+      position: absolute;
+      inset: -15%;
+      background-color: #0B0E14;
+      transition: transform 0.65s var(--ease-editorial);
+      will-change: transform;
+    }
+
+    .preloader-half-top {
+      clip-path: polygon(0 0, 100% 0, 100% 42%, 0 64%);
+      border-bottom: 2px solid var(--crimson-bright);
+    }
+
+    .preloader-half-bot {
+      clip-path: polygon(0 63.8%, 100% 41.8%, 100% 100%, 0 100%);
+    }
+
+    .preloader-seam {
+      position: absolute;
+      top: 53%;
+      left: -10%;
+      width: 120%;
+      height: 2px;
+      background-color: var(--crimson-bright);
+      transform: rotate(-10.5deg) scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.32s var(--ease-editorial), opacity 0.25s ease;
+    }
+
+    .preloader-logo-box {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 5;
+      transition: opacity 0.28s ease, transform 0.45s var(--ease-editorial);
+    }
+
+    .glbl-preloader.is-seam-drawn .preloader-seam {
+      transform: rotate(-10.5deg) scaleX(1);
+    }
+
+    .glbl-preloader.is-exiting .preloader-half-top {
+      transform: translate3d(0, -108%, 0);
+    }
+
+    .glbl-preloader.is-exiting .preloader-half-bot {
+      transform: translate3d(0, 108%, 0);
+    }
+
+    .glbl-preloader.is-exiting .preloader-seam {
+      opacity: 0;
+    }
+
+    .glbl-preloader.is-exiting .preloader-logo-box {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+
+    .glbl-preloader.is-done {
+      display: none;
+    }
+
+    /* ==========================================================================
+       2. FIXED HEADER & MOBILE MENU
+       ========================================================================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 800;
+      background-color: rgba(14, 18, 24, 0.94);
+      border-bottom: 1px solid var(--dark-border);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .nav-item {
+      position: relative;
+      color: var(--ink-light-muted);
+      font-size: 0.84rem;
+      font-weight: 500;
+      padding: 6px 0;
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: var(--crimson-bright);
+      transform: scaleX(0);
+      transform-origin: right center;
+      transition: transform 0.35s var(--ease-editorial);
+    }
+
+    .nav-item:hover,
+    .nav-item.is-active {
+      color: #FFFFFF;
+    }
+
+    .nav-item:hover::after,
+    .nav-item.is-active::after {
+      transform: scaleX(1);
+      transform-origin: left center;
+    }
+
+    /* Magnetic Buttons with Diagonal Fill Sweep */
+    .btn-sharp {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 3px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 13px 24px;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: color 0.3s ease, border-color 0.3s ease, transform 0.32s var(--ease-editorial);
+      will-change: transform;
+      white-space: nowrap;
+      isolation: isolate;
+    }
+
+    .btn-sharp > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-sharp::before {
+      content: '';
+      position: absolute;
+      inset: -10%;
+      z-index: 1;
+      transform: translateX(-115%) skewX(-16deg);
+      transition: transform 0.45s var(--ease-editorial);
+    }
+
+    .btn-sharp:hover::before {
+      transform: translateX(0%) skewX(-16deg);
+    }
+
+    .btn-crimson {
+      background-color: var(--crimson);
+      color: #FFFFFF;
+      border-color: var(--crimson);
+    }
+
+    .btn-crimson::before {
+      background-color: var(--crimson-bright);
+    }
+
+    .btn-outline-dark {
+      background-color: rgba(14, 18, 24, 0.65);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .btn-outline-dark::before {
+      background-color: #FFFFFF;
+    }
+
+    .btn-outline-dark:hover {
+      color: var(--dark-base);
+      border-color: #FFFFFF;
+    }
+
+    .btn-outline-light {
+      background-color: transparent;
+      color: var(--ink-dark);
+      border-color: rgba(14, 18, 24, 0.28);
+    }
+
+    .btn-outline-light::before {
+      background-color: var(--ink-dark);
+    }
+
+    .btn-outline-light:hover {
+      color: #FFFFFF;
+      border-color: var(--ink-dark);
+    }
+
+    .btn-dark-solid {
+      background-color: var(--dark-base);
+      color: #FFFFFF;
+      border-color: var(--dark-base);
+    }
+
+    .btn-dark-solid::before {
+      background-color: var(--crimson);
+    }
+
+    .btn-dark-solid:hover {
+      border-color: var(--crimson);
+    }
+
+    .mobile-menu-panel {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background-color: var(--dark-base);
+      border-bottom: 1px solid var(--dark-border-strong);
+      z-index: 790;
+      transform: translateY(-115%);
+      transition: transform 0.42s var(--ease-editorial);
+      pointer-events: none;
+    }
+
+    .mobile-menu-panel.is-open {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* ==========================================================================
+       3. HERO STAGE (ZERO NEON, ARCHITECTURAL EDITORIAL)
+       ======================================================================== */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      padding-top: 96px;
+      padding-bottom: 40px;
+      background-color: var(--dark-base);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.25) 100%);
+      -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.25) 100%);
+    }
+
+    .hero-content-layer {
+      position: relative;
+      z-index: 5;
+    }
+
+    /* ==========================================================================
+       4. DIAGONAL CORNER RIBBONS & SELF-DRAWING 1PX ARCHITECTURAL FRAMES
+       ========================================================================== */
+    .corner-ribbon-tr {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: clamp(180px, 24vw, 360px);
+      height: clamp(180px, 24vw, 360px);
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .corner-ribbon-tr .band-slate {
+      position: absolute;
+      inset: 0;
+      background: #151B24;
+      clip-path: polygon(28% 0, 100% 0, 100% 74%, 76% 74%, 28% 20%);
+      transform: translate3d(35%, -35%, 0);
+      transition: transform 0.9s var(--ease-editorial);
+    }
+
+    .corner-ribbon-tr .band-crimson-deep {
+      position: absolute;
+      inset: 0;
+      background: var(--crimson-deep);
+      clip-path: polygon(34% 12%, 72% 12%, 62% 24%, 44% 24%);
+      transform: translate3d(40%, -40%, 0);
+      transition: transform 0.95s var(--ease-editorial) 0.08s;
+    }
+
+    .corner-ribbon-tr .band-crimson {
+      position: absolute;
+      inset: 0;
+      background: var(--crimson-bright);
+      clip-path: polygon(62% 12%, 76% 12%, 100% 42%, 100% 58%, 68% 20%);
+      transform: translate3d(45%, -45%, 0);
+      transition: transform 1s var(--ease-editorial) 0.14s;
+    }
+
+    .corner-ribbon-bl {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: clamp(170px, 22vw, 340px);
+      height: clamp(170px, 22vw, 340px);
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .corner-ribbon-bl .band-slate {
+      position: absolute;
+      inset: 0;
+      background: #151B24;
+      clip-path: polygon(0 46%, 54% 100%, 0 100%);
+      transform: translate3d(-35%, 35%, 0);
+      transition: transform 0.9s var(--ease-editorial);
+    }
+
+    .corner-ribbon-bl .band-crimson {
+      position: absolute;
+      inset: 0;
+      background: var(--crimson-bright);
+      clip-path: polygon(0 30%, 62% 100%, 48% 100%, 0 46%);
+      transform: translate3d(-45%, 45%, 0);
+      transition: transform 1s var(--ease-editorial) 0.1s;
+    }
+
+    .corner-ribbon-bl .band-crimson-deep {
+      position: absolute;
+      inset: 0;
+      background: var(--crimson-deep);
+      clip-path: polygon(34% 84%, 72% 84%, 82% 100%, 46% 100%);
+      transform: translate3d(-40%, 40%, 0);
+      transition: transform 0.95s var(--ease-editorial) 0.16s;
+    }
+
+    .arch-drawn .band-slate,
+    .arch-drawn .band-crimson,
+    .arch-drawn .band-crimson-deep {
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Self-Drawing 1px Architectural Hairlines */
+    .arch-frame {
+      position: absolute;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .arch-line-h {
+      position: absolute;
+      height: 1px;
+      background: var(--crimson-hairline);
+      transform: scaleX(0);
+      transition: transform 1.1s var(--ease-editorial);
+    }
+
+    .arch-line-v {
+      position: absolute;
+      width: 1px;
+      background: var(--crimson-hairline);
+      transform: scaleY(0);
+      transition: transform 1.1s var(--ease-editorial);
+    }
+
+    .arch-drawn .arch-line-h {
+      transform: scaleX(1);
+    }
+
+    .arch-drawn .arch-line-v {
+      transform: scaleY(1);
+    }
+
+    /* ==========================================================================
+       5. SPLIT-LINE MASK REVEAL & STAGGER CHOREOGRAPHY
+       ========================================================================== */
+    .mask-line {
+      display: block;
+      overflow: hidden;
+      padding-bottom: 0.06em;
+    }
+
+    .mask-line-inner {
+      display: block;
+      transform: translateY(110%);
+      transition: transform 0.9s var(--ease-editorial);
+      will-change: transform;
+    }
+
+    .is-revealed .mask-line-inner {
+      transform: translateY(0);
+    }
+
+    .fade-rise {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s var(--ease-editorial), transform 0.75s var(--ease-editorial);
+    }
+
+    .fade-rise.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered Service List Items & Animated Dividers */
+    .service-list-item {
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity 0.55s var(--ease-editorial), transform 0.55s var(--ease-editorial);
+    }
+
+    .is-revealed .service-list-item {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .divider-draw {
+      height: 1px;
+      background-color: rgba(14, 18, 24, 0.12);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.8s var(--ease-editorial);
+    }
+
+    .is-revealed .divider-draw {
+      transform: scaleX(1);
+    }
+
+    /* ==========================================================================
+       6. DUAL SCROLL-VELOCITY MARQUEE
+       ========================================================================== */
+    .marquee-wrapper {
+      overflow: hidden;
+      user-select: none;
+      border-top: 1px solid var(--dark-border);
+      border-bottom: 1px solid var(--dark-border);
+    }
+
+    .marquee-row {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .marquee-strip-dark {
+      background-color: var(--dark-elevated);
+      color: #E2E6EE;
+      border-bottom: 1px solid var(--dark-border);
+    }
+
+    .marquee-strip-crimson {
+      background-color: var(--crimson);
+      color: #FFFFFF;
+    }
+
+    .marquee-chunk {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 13px 16px;
+      flex-shrink: 0;
+    }
+
+    .marquee-sq {
+      width: 5px;
+      height: 5px;
+      background-color: currentColor;
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       7. 4-COLUMN KINETIC EXPANDING SHOWCASE
+       ========================================================================== */
+    .showcase-grid {
+      display: flex;
+      width: 100%;
+      height: 580px;
+      border-top: 1px solid var(--dark-border);
+      border-bottom: 1px solid var(--dark-border);
+      background-color: #0B0E14;
+    }
+
+    .showcase-panel {
+      position: relative;
+      flex: 1 1 0%;
+      min-width: 0;
+      overflow: hidden;
+      cursor: pointer;
+      border-right: 1px solid var(--dark-border);
+      transition: flex 0.75s var(--ease-panel);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px;
+      background-color: var(--dark-elevated);
+    }
+
+    .showcase-panel:last-child {
+      border-right: none;
+    }
+
+    .showcase-panel.is-expanded {
+      flex: 2.55 1 0%;
+    }
+
+    .showcase-panel-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.42) contrast(1.08) saturate(0.82);
+      transform: scale(1.06);
+      transition: transform 0.9s var(--ease-panel), filter 0.6s ease;
+    }
+
+    .showcase-panel.is-expanded .showcase-panel-img,
+    .showcase-panel:hover .showcase-panel-img {
+      transform: scale(1.0);
+      filter: brightness(0.60) contrast(1.1) saturate(0.95);
+    }
+
+    .showcase-panel-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14, 18, 24, 0.6) 0%, rgba(14, 18, 24, 0.25) 45%, rgba(14, 18, 24, 0.94) 100%);
+      pointer-events: none;
+    }
+
+    .showcase-bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--crimson-bright);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.65s var(--ease-editorial);
+      z-index: 6;
+    }
+
+    .showcase-panel.is-expanded .showcase-bottom-bar {
+      transform: scaleX(1);
+    }
+
+    .showcase-details {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(14px);
+      transition: max-height 0.6s var(--ease-panel), opacity 0.45s ease, transform 0.55s var(--ease-editorial);
+    }
+
+    .showcase-panel.is-expanded .showcase-details {
+      max-height: 230px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .showcase-grid {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .showcase-panel {
+        flex: none;
+        min-height: 165px;
+        border-right: none;
+        border-bottom: 1px solid var(--dark-border);
+        transition: min-height 0.55s var(--ease-panel);
+      }
+
+      .showcase-panel.is-expanded {
+        flex: none;
+        min-height: 330px;
+      }
+    }
+
+    /* ==========================================================================
+       8. SERVICE CARDS — SUBTLE 3D TILT + STUDIO SHEEN SWEEP
+       ========================================================================== */
+    .tilt-card {
+      position: relative;
+      background-color: #FFFFFF;
+      border: 1px solid var(--light-border);
+      border-radius: 3px;
+      transform-style: preserve-3d;
+      transition: transform 0.45s var(--ease-editorial), border-color 0.25s ease;
+      overflow: hidden;
+      will-change: transform;
+    }
+
+    .tilt-card:hover {
+      border-color: rgba(164, 19, 30, 0.45);
+    }
+
+    .tilt-card-sheen {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      background: linear-gradient(125deg, transparent 20%, rgba(255, 255, 255, 0.72) 48%, rgba(164, 19, 30, 0.05) 54%, transparent 76%);
+      transform: translateX(-100%);
+    }
+
+    .tilt-card:hover .tilt-card-sheen {
+      opacity: 1;
+    }
+
+    /* Mini diagonal corner accent inside each card */
+    .card-corner-cut {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 44px;
+      height: 44px;
+      pointer-events: none;
+    }
+
+    .card-corner-cut::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #151B24;
+      clip-path: polygon(35% 0, 100% 0, 100% 65%);
+    }
+
+    .card-corner-cut::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--crimson-bright);
+      clip-path: polygon(16% 0, 35% 0, 100% 65%, 100% 84%);
+    }
+
+    /* ==========================================================================
+       9. SCROLL-PROGRESS PROCESS TIMELINE
+       ========================================================================== */
+    .timeline-track-bg {
+      position: absolute;
+      background-color: rgba(14, 18, 24, 0.14);
+    }
+
+    .timeline-track-fill {
+      position: absolute;
+      background-color: var(--crimson-bright);
+      transform-origin: left top;
+      will-change: transform;
+    }
+
+    .process-step-card {
+      border: 1px solid var(--light-border);
+      background-color: #FFFFFF;
+      border-radius: 3px;
+      transition: border-color 0.35s ease, transform 0.45s var(--ease-editorial);
+    }
+
+    .process-step-card.is-step-active {
+      border-color: var(--crimson);
+      transform: translateY(-4px);
+    }
+
+    .process-step-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 2px;
+      border: 1px solid rgba(14, 18, 24, 0.25);
+      background-color: #FFFFFF;
+      color: var(--ink-dark);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .process-step-card.is-step-active .process-step-badge {
+      background-color: var(--crimson);
+      border-color: var(--crimson);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       11. CALCULATOR & GALLERY FILTERING
+       ========================================================================== */
+    .calc-class-btn {
+      border: 1px solid var(--light-border);
+      background: #FFFFFF;
+      color: var(--ink-dark);
+      border-radius: 3px;
+      padding: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .calc-class-btn:hover {
+      border-color: var(--ink-dark);
+    }
+
+    .calc-class-btn.is-active {
+      background: var(--dark-base);
+      border-color: var(--dark-base);
+      color: #FFFFFF;
+    }
+
+    .calc-class-btn.is-active .calc-class-sub {
+      color: var(--ink-light-muted);
+    }
+
+    .calc-service-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--light-border);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .calc-service-row:hover {
+      border-color: rgba(14, 18, 24, 0.42);
+    }
+
+    .calc-service-row:has(input:checked) {
+      border-color: var(--crimson);
+      background-color: #FCF6F6;
+    }
+
+    .calc-checkbox {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--crimson);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Gallery Filter Buttons & Smooth Item Transitions */
+    .filter-tab-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border: 1px solid var(--dark-border-strong);
+      border-radius: 3px;
+      background: transparent;
+      color: var(--ink-light-muted);
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .filter-tab-btn:hover {
+      border-color: #FFFFFF;
+      color: #FFFFFF;
+    }
+
+    .filter-tab-btn.is-active {
+      background-color: var(--crimson);
+      border-color: var(--crimson-bright);
+      color: #FFFFFF;
+    }
+
+    .gallery-item {
+      transition: opacity 0.35s var(--ease-editorial), transform 0.45s var(--ease-editorial), border-color 0.25s ease;
+    }
+
+    .gallery-item.is-filtering-out {
+      opacity: 0;
+      transform: scale(0.96) translateY(8px);
+    }
+
+    /* ==========================================================================
+       12. SLIDE-OVER BOOKING DRAWER & LIGHTBOX
+       ========================================================================== */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 13, 18, 0.78);
+      z-index: 900;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .drawer-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .booking-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 520px;
+      background: var(--light-base);
+      color: var(--ink-dark);
+      z-index: 950;
+      transform: translateX(100%);
+      transition: transform 0.5s var(--ease-editorial);
+      display: flex;
+      flex-direction: column;
+      border-left: 2px solid var(--crimson);
+    }
+
+    .booking-drawer.is-open {
+      transform: translateX(0);
+    }
+
+    .drawer-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid rgba(14, 18, 24, 0.22);
+      border-radius: 3px;
+      padding: 11px 14px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--ink-dark);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .drawer-input:focus {
+      border-color: var(--crimson);
+    }
+
+    .slot-chip {
+      border: 1px solid rgba(14, 18, 24, 0.22);
+      background: #FFFFFF;
+      color: var(--ink-dark);
+      border-radius: 3px;
+      padding: 8px 13px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .slot-chip:hover {
+      border-color: var(--ink-dark);
+    }
+
+    .slot-chip.is-active {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      color: #FFFFFF;
+    }
+
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 13, 18, 0.95);
+      z-index: 980;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .lightbox-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    section[id] {
+      scroll-margin-top: 74px;
+    }
+
+    .yandex-map-frame {
+      filter: saturate(0.76) contrast(1.04);
+      border: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .glbl-preloader { display: none !important; }
+      .mask-line-inner, .fade-rise, .service-list-item,
+      .arch-line-h, .arch-line-v, .divider-draw,
+      .band-slate, .band-crimson, .band-crimson-deep {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. PRELOADER DIAGONAL WIPE -->
+  <div class="glbl-preloader" id="glblPreloader" aria-hidden="true">
+    <div class="preloader-half preloader-half-top"></div>
+    <div class="preloader-half preloader-half-bot"></div>
+    <div class="preloader-seam"></div>
+    <div class="preloader-logo-box">
+      <svg width="64" height="64" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="88" height="88" rx="6" fill="#A4131E"/>
+        <g transform="skewX(-12) translate(11, 0)">
+          <path d="M18 33H5.5C3.5 33 2 34.5 2 36.5V43.5C2 45.5 3.5 47 5.5 47H17.5V40.5H10.5V42.8H14V44.4H6.2V35.6H18V33Z" fill="#FFFFFF"/>
+          <path d="M21.5 33H25.2V44.2H35.5V47H21.5V33Z" fill="#FFFFFF"/>
+          <path d="M38.5 33H51.5C53.3 33 54.5 34.1 54.5 35.8C54.5 37.2 53.7 38.2 52.3 38.7C54 39.2 55 40.4 55 42.1C55 44.1 53.5 47 51 47H38.5V33ZM42.2 35.5V38.1H49.8C50.6 38.1 51.1 37.6 51.1 36.8C51.1 36 50.6 35.5 49.8 35.5H42.2ZM42.2 40.5V44.4H50.1C51 44.4 51.5 43.8 51.5 42.4C51.5 41.2 51 40.5 50.1 40.5H42.2Z" fill="#FFFFFF"/>
+          <path d="M58.5 33H62.2V44.2H72.5V47H58.5V33Z" fill="#FFFFFF"/>
+        </g>
+        <rect x="11" y="54" width="66" height="1" fill="rgba(255,255,255,0.45)"/>
+        <text x="44" y="66" text-anchor="middle" fill="#FFFFFF" font-family="Manrope, sans-serif" font-size="8.2" font-weight="700" letter-spacing="2.3">ДЕТЕЙЛИНГ</text>
+      </svg>
+      <span class="font-mono-tech text-[11px] uppercase tracking-[0.24em] text-white/80">КРАСНОДАР • ЧЕКИСТОВ 46Б</span>
+    </div>
+  </div>
+
+  <!-- 2px Solid Crimson Scroll Hairline -->
+  <div id="scrollProgressBar" aria-hidden="true"></div>
+
+  <!-- ========================================================================
+       FIXED HEADER
+       ======================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="max-w-[1340px] mx-auto px-5 md:px-8 h-[72px] flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3.5 shrink-0" aria-label="Глобал Детейлинг — на главную">
+        <svg width="44" height="44" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
+          <rect width="88" height="88" rx="6" fill="#A4131E"/>
+          <g transform="skewX(-12) translate(11, 0)">
+            <path d="M18 33H5.5C3.5 33 2 34.5 2 36.5V43.5C2 45.5 3.5 47 5.5 47H17.5V40.5H10.5V42.8H14V44.4H6.2V35.6H18V33Z" fill="#FFFFFF"/>
+            <path d="M21.5 33H25.2V44.2H35.5V47H21.5V33Z" fill="#FFFFFF"/>
+            <path d="M38.5 33H51.5C53.3 33 54.5 34.1 54.5 35.8C54.5 37.2 53.7 38.2 52.3 38.7C54 39.2 55 40.4 55 42.1C55 44.1 53.5 47 51 47H38.5V33ZM42.2 35.5V38.1H49.8C50.6 38.1 51.1 37.6 51.1 36.8C51.1 36 50.6 35.5 49.8 35.5H42.2ZM42.2 40.5V44.4H50.1C51 44.4 51.5 43.8 51.5 42.4C51.5 41.2 51 40.5 50.1 40.5H42.2Z" fill="#FFFFFF"/>
+            <path d="M58.5 33H62.2V44.2H72.5V47H58.5V33Z" fill="#FFFFFF"/>
+          </g>
+          <rect x="11" y="54" width="66" height="1" fill="rgba(255,255,255,0.45)"/>
+          <text x="44" y="66" text-anchor="middle" fill="#FFFFFF" font-family="Manrope, sans-serif" font-size="8.2" font-weight="700" letter-spacing="2.3">ДЕТЕЙЛИНГ</text>
+        </svg>
+        <div class="leading-tight">
+          <div class="font-display text-[13px] md:text-[14px] font-extrabold uppercase tracking-wide text-white">ГЛОБАЛ ДЕТЕЙЛИНГ</div>
+          <div class="font-mono-tech text-[10px] uppercase text-[#98A2B3]">КРАСНОДАР • ЧЕКИСТОВ 46Б</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden xl:flex items-center gap-6" aria-label="Основная навигация">
+        <a href="#showcase" class="nav-item">Направления</a>
+        <a href="#services" class="nav-item">Услуги</a>
+        <a href="#process" class="nav-item">Этапы</a>
+        <a href="#calculator" class="nav-item">Калькулятор</a>
+        <a href="#gallery" class="nav-item">Галерея</a>
+        <a href="#reviews" class="nav-item">Отзывы</a>
+        <a href="#contacts" class="nav-item">Контакты</a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-3 md:gap-4">
+        <a href="tel:+79528222243" class="hidden sm:inline-flex items-center gap-2 font-mono-tech text-[13px] font-medium text-white hover:text-[#C81625] transition-colors">
+          <span class="w-1.5 h-1.5 bg-[#C81625] inline-block"></span>
+          +7 (952) 822-22-43
+        </a>
+        <button type="button" data-open-booking class="btn-sharp btn-crimson !py-2.5 !px-4 md:!px-5 text-[13px] magnetic-btn">
+          <span>Записаться</span>
+        </button>
+        <button type="button" id="mobileMenuBtn" class="xl:hidden w-10 h-10 border border-white/20 flex flex-col items-center justify-center gap-1.5 rounded-[3px]" aria-label="Открыть меню" aria-expanded="false">
+          <span class="w-5 h-[1.5px] bg-white transition-transform" id="burgerTop"></span>
+          <span class="w-5 h-[1.5px] bg-white transition-transform" id="burgerBot"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-menu-panel xl:hidden" id="mobileMenuPanel">
+    <div class="px-6 py-5 flex flex-col gap-0.5">
+      <a href="#showcase" class="py-2.5 border-b border-white/10 text-sm font-medium text-white mobile-nav-link">01 — Направления</a>
+      <a href="#services" class="py-2.5 border-b border-white/10 text-sm font-medium text-white mobile-nav-link">02 — Официальные услуги</a>
+      <a href="#process" class="py-2.5 border-b border-white/10 text-sm font-medium text-white mobile-nav-link">03 — Этапы работы</a>
+      <a href="#calculator" class="py-2.5 border-b border-white/10 text-sm font-medium text-white mobile-nav-link">04 — Калькулятор</a>
+      <a href="#gallery" class="py-2.5 border-b border-white/10 text-sm font-medium text-white mobile-nav-link">05 — Галерея студии</a>
+      <a href="#reviews" class="py-2.5 border-b border-white/10 text-sm font-medium text-white mobile-nav-link">06 — Отзывы (5,0)</a>
+      <a href="#contacts" class="py-2.5 border-b border-white/10 text-sm font-medium text-white mobile-nav-link">07 — Контакты и карта</a>
+      <div class="pt-4 flex flex-col gap-3">
+        <a href="tel:+79528222243" class="font-mono-tech text-xs text-[#98A2B3]">+7 (952) 822-22-43 • Ежедневно 10:00–21:00</a>
+        <div class="grid grid-cols-2 gap-3">
+          <a href="https://wa.me/79528222243" target="_blank" rel="noopener noreferrer" class="btn-sharp btn-outline-dark !py-2.5 text-xs">
+            <svg class="w-4 h-4 shrink-0 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 2C6.51 2 2.02 6.49 2.02 12.01c0 1.76.46 3.48 1.33 4.99L2 22l5.15-1.35a9.97 9.97 0 0 0 4.88 1.27h.01c5.52 0 10.01-4.49 10.01-10.01 0-2.67-1.04-5.19-2.93-7.08A9.94 9.94 0 0 0 12.031 2zm5.84 14.13c-.25.7-1.44 1.33-2 1.42-.52.08-1.18.11-1.91-.12-.44-.14-1.01-.33-1.74-.64-3.06-1.32-5.06-4.41-5.21-4.61-.15-.2-1.24-1.65-1.24-3.15s.78-2.23 1.06-2.54c.28-.3.61-.38.81-.38.2 0 .41.01.59.01.19.01.44-.07.69.53.25.61.86 2.1.94 2.25.08.15.13.33.03.53-.1.2-.15.33-.3.5-.15.18-.32.4-.46.53-.15.15-.31.31-.13.61.18.3.79 1.3 1.69 2.11 1.16 1.04 2.14 1.36 2.45 1.51.3.15.48.13.66-.08.18-.2.76-.89.96-1.19.2-.3.41-.25.68-.15.28.1 1.77.83 2.07.98.3.15.51.23.58.36.08.13.08.73-.17 1.43z"/></svg>
+            <span>WhatsApp</span>
+          </a>
+          <a href="https://t.me/glbl_detailing" target="_blank" rel="noopener noreferrer" class="btn-sharp btn-outline-dark !py-2.5 text-xs">
+            <svg class="w-4 h-4 shrink-0 text-[#29A9EB]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.96-.75 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.35-1.77 4.84-1.78.11 0 .35.03.5.16.13.1.17.24.18.34.01.07.03.29.01.47z"/></svg>
+            <span>Telegram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       SECTION 01: HERO
+       ======================================================================== -->
+  <section id="top" class="hero-section">
+    <!-- Subtle Architectural Grid -->
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+
+    <!-- Diagonal Corner Ribbon -->
+    <div class="corner-ribbon-tr" id="heroCornerRibbon" aria-hidden="true">
+      <div class="band-slate"></div>
+      <div class="band-crimson-deep"></div>
+      <div class="band-crimson"></div>
+    </div>
+
+    <!-- Self-Drawing 1px Architectural Hairlines -->
+    <div class="arch-frame inset-0 max-w-[1340px] mx-auto hidden md:block" id="heroArchFrame" aria-hidden="true">
+      <div class="arch-line-h" style="top: 92px; left: 32px; width: 240px; transform-origin: left;"></div>
+      <div class="arch-line-v" style="top: 92px; left: 32px; height: 140px; transform-origin: top; transition-delay: 0.14s;"></div>
+      <div class="arch-line-h" style="bottom: 32px; right: 32px; width: 220px; transform-origin: right;"></div>
+      <div class="arch-line-v" style="bottom: 32px; right: 32px; height: 110px; transform-origin: bottom; transition-delay: 0.18s;"></div>
+    </div>
+
+    <!-- Hero Content Container (cleanly positioned below fixed 72px header) -->
+    <div class="hero-content-layer w-full max-w-[1340px] mx-auto px-5 md:px-8 flex flex-col justify-between gap-6">
+      <!-- Top Studio Meta Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2 pb-4 border-b border-white/10 font-mono-tech text-[11px] uppercase text-[#98A2B3] fade-rise hero-reveal">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span class="text-white font-semibold">★ 5,0 (50 ОТЗЫВОВ)</span>
+          <span class="hidden sm:inline text-white/25">|</span>
+          <span class="text-[#C81625] font-semibold">ХОРОШЕЕ МЕСТО 2026</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 bg-[#10B981] inline-block"></span>
+          <span>ОТКРЫТО ЕЖЕДНЕВНО 10:00 – 21:00</span>
+        </div>
+      </div>
+
+      <!-- Middle Row: Editorial Typography & Metrics -->
+      <div class="py-4 md:py-8 max-w-[920px]">
+        <h1 class="font-display text-[clamp(2.1rem,5vw,4.3rem)] font-extrabold uppercase leading-[1.06] text-white mb-6" id="heroHeadline">
+          <span class="mask-line"><span class="mask-line-inner" style="transition-delay: 0.06s;">ДЕТЕЙЛИНГ,</span></span>
+          <span class="mask-line"><span class="mask-line-inner" style="transition-delay: 0.16s;">КУЗОВНОЙ РЕМОНТ</span></span>
+          <span class="mask-line"><span class="mask-line-inner text-[#C81625]" style="transition-delay: 0.26s;">И АВТОСТЁКЛА</span></span>
+        </h1>
+
+        <p class="text-[15px] md:text-[18px] text-[#CBD2DC] max-w-[620px] leading-relaxed mb-8 fade-rise hero-reveal" style="transition-delay: 0.30s;">
+          Ювелирный ремонт сколов и трещин без замены заводского стекла, глубокая полировка стёкол от затёртостей и многоступенчатая полировка кузова с керамической защитой.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3.5 mb-10 fade-rise hero-reveal" style="transition-delay: 0.38s;">
+          <button type="button" data-open-booking class="btn-sharp btn-crimson magnetic-btn">
+            <span>Записаться в студию</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>
+          </button>
+          <a href="#calculator" class="btn-sharp btn-outline-dark magnetic-btn">
+            <span>Рассчитать стоимость</span>
+          </a>
+        </div>
+
+        <!-- Animated Counters Strip -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 border-t border-white/14 pt-6 gap-5 max-w-[820px] fade-rise hero-reveal" style="transition-delay: 0.46s;">
+          <div>
+            <div class="font-mono-tech text-[24px] md:text-[28px] font-semibold text-white">
+              <span class="counter-val" data-target="5.0" data-decimals="1">0.0</span>
+            </div>
+            <div class="text-[12px] text-[#98A2B3] mt-0.5">Рейтинг Яндекса</div>
+          </div>
+          <div class="sm:border-l sm:border-white/12 sm:pl-5">
+            <div class="font-mono-tech text-[24px] md:text-[28px] font-semibold text-white">
+              <span class="counter-val" data-target="50" data-suffix="+">0</span>
+            </div>
+            <div class="text-[12px] text-[#98A2B3] mt-0.5">Отзывов клиентов</div>
+          </div>
+          <div class="sm:border-l sm:border-white/12 sm:pl-5">
+            <div class="font-mono-tech text-[24px] md:text-[28px] font-semibold text-[#C81625]">
+              <span class="counter-val" data-target="15" data-suffix="%">0%</span>
+            </div>
+            <div class="text-[12px] text-[#98A2B3] mt-0.5">Скидка для СВО</div>
+          </div>
+          <div class="sm:border-l sm:border-white/12 sm:pl-5">
+            <div class="font-mono-tech text-[24px] md:text-[28px] font-semibold text-white">
+              <span class="counter-val" data-target="100" data-suffix="%">0%</span>
+            </div>
+            <div class="text-[12px] text-[#98A2B3] mt-0.5">Штатные датчики</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Respectful SVO Discount Strip -->
+      <div class="border border-white/14 bg-[#151B24]/95 px-5 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 fade-rise hero-reveal" style="transition-delay: 0.58s;">
+        <div class="flex items-center gap-3.5">
+          <span class="w-9 h-7 shrink-0 bg-[#A4131E] text-white font-mono-tech text-xs font-semibold flex items-center justify-center rounded-[2px]">−15%</span>
+          <div>
+            <div class="text-sm font-semibold text-white">Скидка 15% для участников СВО — на все услуги студии</div>
+            <div class="text-xs text-[#98A2B3]">Действует на ремонт автостёкол, полировку кузова и нанесение керамики</div>
+          </div>
+        </div>
+        <button type="button" id="applySvoFromHero" class="font-mono-tech text-xs uppercase text-white border-b border-[#C81625] pb-0.5 hover:text-[#C81625] transition-colors self-start sm:self-auto shrink-0">
+          Применить в калькуляторе →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       DUAL SCROLL-VELOCITY MARQUEE (2 CONTRASTING STRIPS)
+       ======================================================================== -->
+  <div class="marquee-wrapper" aria-hidden="true">
+    <!-- Row 1: Dark Slate -->
+    <div class="marquee-strip-dark">
+      <div class="marquee-row" id="marqueeRowTop">
+        <div class="marquee-chunk font-mono-tech text-[12px] uppercase">
+          <span>РЕМОНТ СКОЛОВ И ТРЕЩИН</span><span class="marquee-sq"></span>
+          <span>ПОЛИРОВКА СТЁКОЛ</span><span class="marquee-sq"></span>
+          <span>НАНЕСЕНИЕ АНТИДОЖДЯ</span><span class="marquee-sq"></span>
+          <span>ЧИСТКА ОТ ВОДНОГО КАМНЯ</span><span class="marquee-sq"></span>
+          <span>ОСТАНОВКА ТРЕЩИН</span><span class="marquee-sq"></span>
+          <span>КРАСНОДАР • ПР-Т ЧЕКИСТОВ, 46Б</span><span class="marquee-sq"></span>
+        </div>
+        <div class="marquee-chunk font-mono-tech text-[12px] uppercase">
+          <span>РЕМОНТ СКОЛОВ И ТРЕЩИН</span><span class="marquee-sq"></span>
+          <span>ПОЛИРОВКА СТЁКОЛ</span><span class="marquee-sq"></span>
+          <span>НАНЕСЕНИЕ АНТИДОЖДЯ</span><span class="marquee-sq"></span>
+          <span>ЧИСТКА ОТ ВОДНОГО КАМНЯ</span><span class="marquee-sq"></span>
+          <span>ОСТАНОВКА ТРЕЩИН</span><span class="marquee-sq"></span>
+          <span>КРАСНОДАР • ПР-Т ЧЕКИСТОВ, 46Б</span><span class="marquee-sq"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Matte Crimson (Opposite Direction) -->
+    <div class="marquee-strip-crimson">
+      <div class="marquee-row" id="marqueeRowBottom">
+        <div class="marquee-chunk font-display text-[11px] font-bold uppercase tracking-wider">
+          <span>ПОЛИРОВКА КУЗОВА</span><span class="marquee-sq"></span>
+          <span>СРЕДНЕАБРАЗИВНАЯ И ГЛУБОКАЯ КОРРЕКЦИЯ</span><span class="marquee-sq"></span>
+          <span>НАНЕСЕНИЕ КЕРАМИКИ</span><span class="marquee-sq"></span>
+          <span>ХОРОШЕЕ МЕСТО 2026</span><span class="marquee-sq"></span>
+          <span>5,0 НА ЯНДЕКС КАРТАХ</span><span class="marquee-sq"></span>
+          <span>PET-FRIENDLY СТУДИЯ</span><span class="marquee-sq"></span>
+        </div>
+        <div class="marquee-chunk font-display text-[11px] font-bold uppercase tracking-wider">
+          <span>ПОЛИРОВКА КУЗОВА</span><span class="marquee-sq"></span>
+          <span>СРЕДНЕАБРАЗИВНАЯ И ГЛУБОКАЯ КОРРЕКЦИЯ</span><span class="marquee-sq"></span>
+          <span>НАНЕСЕНИЕ КЕРАМИКИ</span><span class="marquee-sq"></span>
+          <span>ХОРОШЕЕ МЕСТО 2026</span><span class="marquee-sq"></span>
+          <span>5,0 НА ЯНДЕКС КАРТАХ</span><span class="marquee-sq"></span>
+          <span>PET-FRIENDLY СТУДИЯ</span><span class="marquee-sq"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       SECTION 02: 4-COLUMN KINETIC EXPANDING SHOWCASE
+       ======================================================================== -->
+  <section id="showcase" class="bg-[#0E1218] pt-16 md:pt-24">
+    <div class="max-w-[1340px] mx-auto px-5 md:px-8 pb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div>
+        <div class="font-mono-tech text-xs uppercase text-[#C81625] mb-3">[ 02 / ОСНОВНЫЕ НАПРАВЛЕНИЯ ]</div>
+        <h2 class="font-display text-2xl md:text-4xl font-extrabold uppercase text-white reveal-block">
+          <span class="mask-line"><span class="mask-line-inner">ЧЕТЫРЕ СПЕЦИАЛИЗАЦИИ</span></span>
+          <span class="mask-line"><span class="mask-line-inner">СТУДИИ GLBL</span></span>
+        </h2>
+      </div>
+      <p class="text-sm text-[#98A2B3] max-w-[420px]">
+        Наведите курсор или нажмите на направление, чтобы раскрыть детали технологии и записаться на удобное время.
+      </p>
+    </div>
+
+    <div class="showcase-grid" id="showcaseGrid">
+      <!-- Panel 01 -->
+      <article class="showcase-panel is-expanded" tabindex="0">
+        <div class="showcase-bottom-bar"></div>
+        <img
+          src="https://avatars.mds.yandex.net/get-altay/17753003/2a0000019cb0222412229deebcebe8c0d023/XXL"
+          alt="Ремонт сколов и трещин на стекле"
+          class="showcase-panel-img"
+          onerror="this.onerror=null; this.src='https://placehold.co/700x900/151B24/F4F3EF?text=01+GLASS+REPAIR';"
+        >
+        <div class="showcase-panel-scrim"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+          <span class="font-mono-tech text-xs text-white/85 border border-white/25 px-2.5 py-1">01</span>
+          <span class="font-mono-tech text-[11px] uppercase text-white bg-[#A4131E] px-2.5 py-1">ОТ 1 500 ₽</span>
+        </div>
+
+        <div class="relative z-10">
+          <h3 class="font-display text-lg md:text-2xl font-extrabold uppercase text-white leading-tight">
+            РЕМОНТ СКОЛОВ<br>/ ТРЕЩИН
+          </h3>
+          <div class="showcase-details">
+            <p class="text-sm text-[#D1D6DF] mt-3 max-w-[420px] leading-relaxed">
+              Остановка лучей и оптическая заливка полимером под давлением. Сохраняем заводское стекло, штатный обогрев, датчики дождя и камеры ассистентов.
+            </p>
+            <div class="mt-5">
+              <button type="button" data-open-booking data-prefill-service="Ремонт сколов и трещин на стекле" class="btn-sharp btn-crimson !py-2.5 !px-4 text-xs">
+                <span>Записаться на ремонт →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Panel 02 -->
+      <article class="showcase-panel" tabindex="0">
+        <div class="showcase-bottom-bar"></div>
+        <img
+          src="https://avatars.mds.yandex.net/get-altay/16480550/2a0000019cb021fbb9e5da0a4564344411a3/XXL"
+          alt="Полировка кузова и нанесение керамики"
+          class="showcase-panel-img"
+          onerror="this.onerror=null; this.src='https://placehold.co/700x900/151B24/F4F3EF?text=02+POLISH+%2B+CERAMIC';"
+        >
+        <div class="showcase-panel-scrim"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+          <span class="font-mono-tech text-xs text-white/85 border border-white/25 px-2.5 py-1">02</span>
+          <span class="font-mono-tech text-[11px] uppercase text-white bg-[#A4131E] px-2.5 py-1">ОТ 12 000 ₽</span>
+        </div>
+
+        <div class="relative z-10">
+          <h3 class="font-display text-lg md:text-2xl font-extrabold uppercase text-white leading-tight">
+            ПОЛИРОВКА КУЗОВА<br>+ КЕРАМИКА
+          </h3>
+          <div class="showcase-details">
+            <p class="text-sm text-[#D1D6DF] mt-3 max-w-[420px] leading-relaxed">
+              Восстановление глубокого зеркального глянца и консервация ЛКП керамическим составом: стойкий гидрофоб, глубина цвета и защита от южного солнца.
+            </p>
+            <div class="mt-5">
+              <button type="button" data-open-booking data-prefill-service="Полировка кузова + керамика" class="btn-sharp btn-crimson !py-2.5 !px-4 text-xs">
+                <span>Записаться на комплекс →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Panel 03 -->
+      <article class="showcase-panel" tabindex="0">
+        <div class="showcase-bottom-bar"></div>
+        <img
+          src="https://avatars.mds.yandex.net/get-altay/16480821/2a0000019b7b12217f2ac5c9522b175857ff/XXL"
+          alt="Полировка стекла и шлифовка"
+          class="showcase-panel-img"
+          onerror="this.onerror=null; this.src='https://placehold.co/700x900/151B24/F4F3EF?text=03+GLASS+POLISH';"
+        >
+        <div class="showcase-panel-scrim"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+          <span class="font-mono-tech text-xs text-white/85 border border-white/25 px-2.5 py-1">03</span>
+          <span class="font-mono-tech text-[11px] uppercase text-white bg-[#A4131E] px-2.5 py-1">ОТ 2 500 ₽</span>
+        </div>
+
+        <div class="relative z-10">
+          <h3 class="font-display text-lg md:text-2xl font-extrabold uppercase text-white leading-tight">
+            ПОЛИРОВКА СТЕКЛА<br>+ ШЛИФОВКА
+          </h3>
+          <div class="showcase-details">
+            <p class="text-sm text-[#D1D6DF] mt-3 max-w-[420px] leading-relaxed">
+              Удаление затёртостей от дворников, царапин и водного камня на лобовом, боковых и заднем стёклах без оптических искажений. Финиш — «Антидождь».
+            </p>
+            <div class="mt-5">
+              <button type="button" data-open-booking data-prefill-service="Полировка стёкол и антидождь" class="btn-sharp btn-crimson !py-2.5 !px-4 text-xs">
+                <span>Записаться на стёкла →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Panel 04 -->
+      <article class="showcase-panel" tabindex="0">
+        <div class="showcase-bottom-bar"></div>
+        <img
+          src="https://avatars.mds.yandex.net/get-altay/15434007/2a0000019b7b11d6cb6b749b8619d1284891/XXL"
+          alt="Среднеабразивная и глубокая полировка кузова"
+          class="showcase-panel-img"
+          onerror="this.onerror=null; this.src='https://placehold.co/700x900/151B24/F4F3EF?text=04+DEEP+CORRECTION';"
+        >
+        <div class="showcase-panel-scrim"></div>
+
+        <div class="relative z-10 flex items-center justify-between">
+          <span class="font-mono-tech text-xs text-white/85 border border-white/25 px-2.5 py-1">04</span>
+          <span class="font-mono-tech text-[11px] uppercase text-white bg-[#A4131E] px-2.5 py-1">ОТ 14 000 ₽</span>
+        </div>
+
+        <div class="relative z-10">
+          <h3 class="font-display text-lg md:text-2xl font-extrabold uppercase text-white leading-tight">
+            СРЕДНЕАБРАЗИВНАЯ<br>И ГЛУБОКАЯ ПОЛИРОВКА
+          </h3>
+          <div class="showcase-details">
+            <p class="text-sm text-[#D1D6DF] mt-3 max-w-[420px] leading-relaxed">
+              Инспекция под профессиональным светом, удаление мойечной «паутинки», голограмм и глубоких рисок с обязательным замером толщины ЛКП.
+            </p>
+            <div class="mt-5">
+              <button type="button" data-open-booking data-prefill-service="Среднеабразивная / глубокая полировка кузова" class="btn-sharp btn-crimson !py-2.5 !px-4 text-xs">
+                <span>Записаться на полировку →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 03: OFFICIAL SERVICE SHEET (LIGHT ARCHITECTURAL CANVAS #F4F3EF)
+       ======================================================================== -->
+  <section id="services" class="relative bg-[#F4F3EF] text-[#0E1218] py-20 md:py-28 overflow-hidden" data-arch-draw>
+    <!-- Diagonal Corner Ribbons -->
+    <div class="corner-ribbon-tr" aria-hidden="true">
+      <div class="band-slate"></div>
+      <div class="band-crimson-deep"></div>
+      <div class="band-crimson"></div>
+    </div>
+    <div class="corner-ribbon-bl" aria-hidden="true">
+      <div class="band-crimson"></div>
+      <div class="band-slate"></div>
+      <div class="band-crimson-deep"></div>
+    </div>
+
+    <!-- Self-Drawing 1px Crimson Architectural Framing Hairlines -->
+    <div class="arch-frame inset-0 max-w-[1340px] mx-auto hidden md:block" aria-hidden="true">
+      <div class="arch-line-h" style="top: 42px; left: 28px; width: 320px; transform-origin: left;"></div>
+      <div class="arch-line-v" style="top: 42px; left: 28px; height: 280px; transform-origin: top;"></div>
+      <div class="arch-line-h" style="top: 64px; left: 54px; width: 190px; transform-origin: left; transition-delay: 0.16s;"></div>
+      <div class="arch-line-v" style="top: 24px; left: 210px; height: 96px; transform-origin: top; transition-delay: 0.24s;"></div>
+
+      <div class="arch-line-h" style="bottom: 42px; right: 28px; width: 300px; transform-origin: right;"></div>
+      <div class="arch-line-v" style="bottom: 42px; right: 28px; height: 260px; transform-origin: bottom;"></div>
+      <div class="arch-line-h" style="bottom: 66px; right: 56px; width: 170px; transform-origin: right; transition-delay: 0.18s;"></div>
+      <div class="arch-line-v" style="bottom: 24px; right: 184px; height: 88px; transform-origin: bottom; transition-delay: 0.28s;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-[1200px] mx-auto px-5 md:px-8">
+      <div class="mb-12 md:mb-16 max-w-[680px]">
+        <div class="font-mono-tech text-xs uppercase text-[#A4131E] mb-3">[ 03 / КАРТА УСЛУГ СТУДИИ ]</div>
+        <h2 class="font-display text-3xl md:text-5xl font-extrabold uppercase text-[#8A111A] reveal-block">
+          <span class="mask-line"><span class="mask-line-inner">НАШИ УСЛУГИ :</span></span>
+        </h2>
+        <p class="text-[#525B69] text-sm md:text-base mt-3 max-w-[540px]">
+          Официальный перечень работ студии «Глобал Детейлинг» в Краснодаре. Каждый автомобиль принимаем строго по записи без потоковой спешки.
+        </p>
+      </div>
+
+      <!-- 2x2 Tilt Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Category 1: СКОЛЫ / ТРЕЩИНЫ -->
+        <article class="tilt-card p-7 md:p-9 fade-rise">
+          <div class="tilt-card-sheen"></div>
+          <div class="card-corner-cut"></div>
+
+          <div class="flex items-center justify-between mb-4 pr-8">
+            <h3 class="font-display text-lg md:text-xl font-extrabold uppercase text-[#8A111A]">СКОЛЫ / ТРЕЩИНЫ</h3>
+            <span class="font-mono-tech text-xs text-[#525B69]">01</span>
+          </div>
+          <div class="divider-draw mb-5"></div>
+
+          <ul class="space-y-3 text-[15px] font-semibold uppercase tracking-[0.015em] text-[#0E1218]">
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.08s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Ремонт сколов на стекле</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.16s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Ремонт трещин на стекле</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.24s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Остановка трещины</span>
+            </li>
+          </ul>
+
+          <div class="mt-8 pt-4 border-t border-[#0E1218]/10 flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-[#525B69]">ОТ 1 500 ₽ • 30–60 МИН</span>
+            <button type="button" data-open-booking data-prefill-service="Ремонт сколов и трещин на стекле" class="font-mono-tech text-xs uppercase font-semibold text-[#A4131E] hover:underline">
+              Записаться →
+            </button>
+          </div>
+        </article>
+
+        <!-- Category 2: ПОЛИРОВКА СТЁКОЛ -->
+        <article class="tilt-card p-7 md:p-9 fade-rise" style="transition-delay: 0.08s;">
+          <div class="tilt-card-sheen"></div>
+          <div class="card-corner-cut"></div>
+
+          <div class="flex items-center justify-between mb-4 pr-8">
+            <h3 class="font-display text-lg md:text-xl font-extrabold uppercase text-[#8A111A]">ПОЛИРОВКА СТЁКОЛ</h3>
+            <span class="font-mono-tech text-xs text-[#525B69]">02</span>
+          </div>
+          <div class="divider-draw mb-5"></div>
+
+          <ul class="space-y-3 text-[15px] font-semibold uppercase tracking-[0.015em] text-[#0E1218]">
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.08s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Полировка лобового стекла</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.14s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Полировка боковых стёкол</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.20s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Полировка заднего стекла</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.26s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Нанесение антидождя</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.32s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Чистка от водного камня</span>
+            </li>
+          </ul>
+
+          <div class="mt-8 pt-4 border-t border-[#0E1218]/10 flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-[#525B69]">ОТ 2 500 ₽ • БЕЗ ЛИНЗОВАНИЯ</span>
+            <button type="button" data-open-booking data-prefill-service="Полировка стёкол и антидождь" class="font-mono-tech text-xs uppercase font-semibold text-[#A4131E] hover:underline">
+              Записаться →
+            </button>
+          </div>
+        </article>
+
+        <!-- Category 3: ПОЛИРОВКА КУЗОВА -->
+        <article class="tilt-card p-7 md:p-9 fade-rise" style="transition-delay: 0.14s;">
+          <div class="tilt-card-sheen"></div>
+          <div class="card-corner-cut"></div>
+
+          <div class="flex items-center justify-between mb-4 pr-8">
+            <h3 class="font-display text-lg md:text-xl font-extrabold uppercase text-[#8A111A]">ПОЛИРОВКА КУЗОВА</h3>
+            <span class="font-mono-tech text-xs text-[#525B69]">03</span>
+          </div>
+          <div class="divider-draw mb-5"></div>
+
+          <ul class="space-y-3 text-[15px] font-semibold uppercase tracking-[0.015em] text-[#0E1218]">
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.08s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Предпродажная полировка</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.15s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Среднеабразивная полировка</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.22s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Глубокая полировка</span>
+            </li>
+            <li class="service-list-item flex items-start gap-3" style="transition-delay: 0.29s;">
+              <span class="w-1.5 h-1.5 bg-[#A4131E] mt-2 shrink-0"></span>
+              <span>Нанесение керамики</span>
+            </li>
+          </ul>
+
+          <div class="mt-8 pt-4 border-t border-[#0E1218]/10 flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-[#525B69]">ОТ 9 000 ₽ • 1–2 ДНЯ</span>
+            <button type="button" data-open-booking data-prefill-service="Полировка кузова + керамика" class="font-mono-tech text-xs uppercase font-semibold text-[#A4131E] hover:underline">
+              Записаться →
+            </button>
+          </div>
+        </article>
+
+        <!-- Category 4: РЕМОНТ СКОЛОВ / ЦАРАПИН НА КУЗОВЕ -->
+        <article class="tilt-card p-7 md:p-9 flex flex-col justify-between fade-rise" style="transition-delay: 0.20s;">
+          <div class="tilt-card-sheen"></div>
+          <div class="card-corner-cut"></div>
+
+          <div>
+            <div class="flex items-center justify-between mb-4 pr-8">
+              <h3 class="font-display text-lg md:text-xl font-extrabold uppercase text-[#8A111A] leading-snug">РЕМОНТ СКОЛОВ /<br>ЦАРАПИН НА КУЗОВЕ</h3>
+              <span class="font-mono-tech text-xs text-[#525B69]">04</span>
+            </div>
+            <div class="divider-draw mb-5"></div>
+
+            <div class="inline-block bg-[#0E1218] text-white font-mono-tech text-xs uppercase px-3 py-1.5 mb-4 rounded-[2px]">
+              ЦЕНА — ДОГОВОРНАЯ
+            </div>
+            <p class="text-[14.5px] text-[#525B69] leading-relaxed">
+              Локальное устранение сколов до грунта и глубоких царапин без перекраса всей детали. Точная оценка стоимости при бесплатном осмотре автомобиля в боксе.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-[#0E1218]/10 flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-[#525B69]">ОСМОТР В БОКСЕ БЕСПЛАТНО</span>
+            <button type="button" data-open-booking data-prefill-service="Ремонт сколов и царапин на кузове" class="font-mono-tech text-xs uppercase font-semibold text-[#A4131E] hover:underline">
+              Записаться →
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 04: SCROLL-PROGRESS PROCESS TIMELINE
+       ======================================================================== -->
+  <section id="process" class="bg-[#FFFFFF] text-[#0E1218] py-20 md:py-24 border-t border-[#0E1218]/12">
+    <div class="max-w-[1260px] mx-auto px-5 md:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="font-mono-tech text-xs uppercase text-[#A4131E] mb-3">[ 04 / РЕГЛАМЕНТ РАБОТЫ ]</div>
+          <h2 class="font-display text-2xl md:text-4xl font-extrabold uppercase text-[#0E1218] reveal-block">
+            <span class="mask-line"><span class="mask-line-inner">ЧЕТЫРЕ ЭТАПА В БОКСЕ</span></span>
+          </h2>
+        </div>
+        <div class="font-mono-tech text-xs text-[#525B69]" id="processStatusLabel">ЭТАП 01 / 04 • СКРОЛЛЬТЕ ВНИЗ</div>
+      </div>
+
+      <!-- Progress Rail + 4 Step Cards -->
+      <div class="relative" id="processTimelineRoot">
+        <!-- Horizontal Rail on Desktop -->
+        <div class="hidden lg:block relative h-1.5 mb-6">
+          <div class="timeline-track-bg inset-0 h-[2px] top-1/2 -translate-y-1/2"></div>
+          <div class="timeline-track-fill h-[2px] top-1/2 -translate-y-1/2 left-0 w-full" id="processProgressLine" style="transform: scaleX(0.15);"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Step 01 -->
+          <div class="process-step-card p-6 is-step-active" data-step-index="0">
+            <div class="flex items-center justify-between mb-5">
+              <div class="process-step-badge">01</div>
+              <span class="font-mono-tech text-[10px] uppercase text-[#525B69]">15–20 МИН</span>
+            </div>
+            <h3 class="font-display text-sm font-bold uppercase text-[#0E1218] mb-2.5">Осмотр и замер ЛКП</h3>
+            <p class="text-xs md:text-[13.5px] text-[#525B69] leading-relaxed">
+              Диагностируем сколы, трещины и лак под инспекционным светом. Замеряем толщину ЛКП и фиксируем точную смету до старта.
+            </p>
+          </div>
+
+          <!-- Step 02 -->
+          <div class="process-step-card p-6" data-step-index="1">
+            <div class="flex items-center justify-between mb-5">
+              <div class="process-step-badge">02</div>
+              <span class="font-mono-tech text-[10px] uppercase text-[#525B69]">ДЕКОНТАМИНАЦИЯ</span>
+            </div>
+            <h3 class="font-display text-sm font-bold uppercase text-[#0E1218] mb-2.5">Глубокая очистка</h3>
+            <p class="text-xs md:text-[13.5px] text-[#525B69] leading-relaxed">
+              Удаляем битум, металлические вкрапления и водный камень, оклеиваем резинки и пластик защитной лентой.
+            </p>
+          </div>
+
+          <!-- Step 03 -->
+          <div class="process-step-card p-6" data-step-index="2">
+            <div class="flex items-center justify-between mb-5">
+              <div class="process-step-badge">03</div>
+              <span class="font-mono-tech text-[10px] uppercase text-[#525B69]">ОСНОВНОЙ ЭТАП</span>
+            </div>
+            <h3 class="font-display text-sm font-bold uppercase text-[#0E1218] mb-2.5">Полировка / Ремонт стекла</h3>
+            <p class="text-xs md:text-[13.5px] text-[#525B69] leading-relaxed">
+              Полимеризация сколов и трещин под УФ или многоступенчатая полировка кузова и стёкол без голограмм и линзования.
+            </p>
+          </div>
+
+          <!-- Step 04 -->
+          <div class="process-step-card p-6" data-step-index="3">
+            <div class="flex items-center justify-between mb-5">
+              <div class="process-step-badge">04</div>
+              <span class="font-mono-tech text-[10px] uppercase text-[#525B69]">КОНТРОЛЬ</span>
+            </div>
+            <h3 class="font-display text-sm font-bold uppercase text-[#0E1218] mb-2.5">Керамика и выдача</h3>
+            <p class="text-xs md:text-[13.5px] text-[#525B69] leading-relaxed">
+              Наносим керамику или «Антидождь», выдерживаем кристаллизацию, проверяем при дневном свете и передаём авто.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 05: INTERACTIVE CALCULATOR (LIGHT CANVAS)
+       ======================================================================== -->
+  <section id="calculator" class="bg-[#F4F3EF] text-[#0E1218] py-20 md:py-28 border-t border-[#0E1218]/12">
+    <div class="max-w-[1260px] mx-auto px-5 md:px-8">
+      <div class="mb-12 max-w-[680px]">
+        <div class="font-mono-tech text-xs uppercase text-[#A4131E] mb-3">[ 05 / КАЛЬКУЛЯТОР СТОИМОСТИ ]</div>
+        <h2 class="font-display text-2xl md:text-4xl font-extrabold uppercase text-[#0E1218] reveal-block">
+          <span class="mask-line"><span class="mask-line-inner">ПРЕДВАРИТЕЛЬНЫЙ РАСЧЁТ</span></span>
+        </h2>
+        <p class="text-[#525B69] text-sm md:text-base mt-3 max-w-[560px]">
+          Выберите класс кузова и нужные позиции. Точную стоимость фиксируем до начала работ после осмотра автомобиля.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Controls (7 cols) -->
+        <div class="lg:col-span-7 space-y-8">
+          <div>
+            <div class="font-mono-tech text-xs uppercase text-[#525B69] mb-3">01 / КЛАСС АВТОМОБИЛЯ</div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button type="button" class="calc-class-btn is-active" data-mult="1.0" data-class-label="Седан / Купе">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-display text-xs font-bold uppercase">Седан / Купе</span>
+                  <span class="font-mono-tech text-[11px] opacity-75">×1.0</span>
+                </div>
+                <div class="calc-class-sub text-xs text-[#525B69]">BMW 3/5, Mercedes E, Camry</div>
+              </button>
+
+              <button type="button" class="calc-class-btn" data-mult="1.2" data-class-label="Кроссовер">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-display text-xs font-bold uppercase">Кроссовер</span>
+                  <span class="font-mono-tech text-[11px] opacity-75">×1.2</span>
+                </div>
+                <div class="calc-class-sub text-xs text-[#525B69]">BMW X3/X5, RAV4, Tiguan</div>
+              </button>
+
+              <button type="button" class="calc-class-btn" data-mult="1.4" data-class-label="Внедорожник / Минивэн">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-display text-xs font-bold uppercase">Внедорожник</span>
+                  <span class="font-mono-tech text-[11px] opacity-75">×1.4</span>
+                </div>
+                <div class="calc-class-sub text-xs text-[#525B69]">Land Cruiser, X7, V-Класс</div>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="font-mono-tech text-xs uppercase text-[#525B69] mb-3">02 / ВЫБЕРИТЕ УСЛУГИ</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="calcServicesList">
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Ремонт скола на стекле" data-base="1500" data-fixed="true" checked>
+                  <span class="text-sm font-semibold">Ремонт скола на стекле</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 1 500 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Остановка / ремонт трещины" data-base="2000" data-fixed="true">
+                  <span class="text-sm font-semibold">Остановка / ремонт трещины</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 2 000 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Полировка лобового стекла" data-base="6000">
+                  <span class="text-sm font-semibold">Полировка лобового стекла</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 6 000 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Нанесение антидождя" data-base="2500" checked>
+                  <span class="text-sm font-semibold">Нанесение антидождя</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 2 500 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Чистка от водного камня" data-base="3000">
+                  <span class="text-sm font-semibold">Чистка от водного камня</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 3 000 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Предпродажная полировка" data-base="9000">
+                  <span class="text-sm font-semibold">Предпродажная полировка</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 9 000 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Среднеабразивная полировка" data-base="14000">
+                  <span class="text-sm font-semibold">Среднеабразивная полировка</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 14 000 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Глубокая полировка кузова" data-base="19000">
+                  <span class="text-sm font-semibold">Глубокая полировка кузова</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 19 000 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Нанесение керамики" data-base="12000">
+                  <span class="text-sm font-semibold">Нанесение керамики</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#A4131E] shrink-0 calc-item-price">от 12 000 ₽</span>
+              </label>
+
+              <label class="calc-service-row">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" class="calc-checkbox" data-name="Ремонт сколов / царапин кузова" data-base="0" data-negotiable="true">
+                  <span class="text-sm font-semibold">Ремонт сколов / царапин кузова</span>
+                </div>
+                <span class="font-mono-tech text-xs font-semibold text-[#525B69] shrink-0">договорная</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Official 15% SVO Discount Toggle -->
+          <label class="flex items-center justify-between gap-4 p-4 bg-[#FFFFFF] border border-[#0E1218]/20 rounded-[3px] cursor-pointer hover:border-[#A4131E] transition-colors">
+            <div class="flex items-center gap-3.5">
+              <input type="checkbox" id="svoDiscountToggle" class="calc-checkbox">
+              <div>
+                <div class="text-sm font-bold text-[#0E1218]">Скидка 15% для участников СВО — на все услуги</div>
+                <div class="text-xs text-[#525B69]">Применяется автоматически ко всем выбранным позициям расчёта</div>
+              </div>
+            </div>
+            <span class="font-mono-tech text-xs font-semibold px-2.5 py-1 bg-[#A4131E] text-white shrink-0 rounded-[2px]">−15%</span>
+          </label>
+        </div>
+
+        <!-- Sticky Receipt (5 cols) -->
+        <div class="lg:col-span-5 lg:sticky lg:top-[96px]">
+          <div class="bg-[#FFFFFF] border border-[#0E1218]/18 rounded-[3px] p-6 md:p-8 relative">
+            <div class="h-[3px] bg-[#A4131E] absolute top-0 left-0 right-0"></div>
+
+            <div class="flex items-center justify-between pb-4 mb-5 border-b border-[#0E1218]/12">
+              <span class="font-mono-tech text-xs uppercase text-[#525B69]">СМЕТА ЗАЯВКИ</span>
+              <span class="font-mono-tech text-xs font-semibold text-[#0E1218]" id="receiptClassLabel">Седан / Купе</span>
+            </div>
+
+            <div id="receiptItems" class="space-y-2.5 min-h-[96px] mb-6 text-sm"></div>
+
+            <div class="pt-5 border-t border-[#0E1218]/15 mb-6">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="text-xs uppercase font-mono-tech text-[#525B69]">ОРИЕНТИРОВОЧНО:</span>
+                <div class="text-right">
+                  <span id="calcOriginalTotal" class="font-mono-tech text-sm text-[#525B69] line-through mr-2 hidden"></span>
+                  <span id="calcFinalTotal" class="font-display text-2xl md:text-3xl font-extrabold text-[#0E1218]">от 4 000 ₽</span>
+                </div>
+              </div>
+              <div id="calcDiscountNote" class="text-right font-mono-tech text-xs text-[#A4131E] mt-1.5 hidden"></div>
+              <div id="calcNegotiableNote" class="text-right font-mono-tech text-[11px] text-[#525B69] mt-1 hidden">
+                + ремонт сколов/царапин кузова (оценка по фото или в боксе)
+              </div>
+            </div>
+
+            <div>
+              <button type="button" id="transferToBookingBtn" class="btn-sharp btn-crimson w-full magnetic-btn">
+                <span>Записаться с этим расчётом</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 06: FILTERABLE GALLERY OF REAL STUDIO PHOTOS (DARK CANVAS)
+       ======================================================================== -->
+  <section id="gallery" class="bg-[#0E1218] py-20 md:py-28 border-t border-white/10">
+    <div class="max-w-[1340px] mx-auto px-5 md:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+        <div>
+          <div class="font-mono-tech text-xs uppercase text-[#C81625] mb-3">[ 06 / РЕАЛЬНЫЕ ФОТО СТУДИИ ]</div>
+          <h2 class="font-display text-2xl md:text-4xl font-extrabold uppercase text-white reveal-block">
+            <span class="mask-line"><span class="mask-line-inner">БОКС НА ЧЕКИСТОВ, 46Б</span></span>
+          </h2>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center gap-2" id="galleryFilters">
+          <button type="button" class="filter-tab-btn is-active" data-filter="all">Все (6)</button>
+          <button type="button" class="filter-tab-btn" data-filter="box">Бокс и свет</button>
+          <button type="button" class="filter-tab-btn" data-filter="polish">Полировка</button>
+          <button type="button" class="filter-tab-btn" data-filter="optics">Оптика и стёкла</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="studioGalleryGrid">
+        <!-- Photo 01 -->
+        <figure class="group relative border border-white/12 hover:border-[#C81625]/70 bg-[#151B24] rounded-[3px] overflow-hidden cursor-pointer fade-rise gallery-item"
+                data-category="box"
+                data-src="https://avatars.mds.yandex.net/get-altay/17863912/2a0000019b7b120a8bbb76297bbc15ef8106/XXL"
+                data-title="Бокс на Чекистов, 46Б"
+                data-sub="Чистая рабочая зона студии Глобал Детейлинг в Юбилейном микрорайоне">
+          <div class="aspect-[4/3] overflow-hidden bg-[#0B0E14]">
+            <img src="https://avatars.mds.yandex.net/get-altay/17863912/2a0000019b7b120a8bbb76297bbc15ef8106/XXL"
+                 alt="Бокс на Чекистов, 46Б" loading="lazy"
+                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                 onerror="this.onerror=null; this.src='https://placehold.co/800x600/151B24/F4F3EF?text=GLBL+BOX+01';">
+          </div>
+          <figcaption class="p-4 flex items-center justify-between gap-3 border-t border-white/10">
+            <div>
+              <div class="text-sm font-semibold text-white">Бокс на Чекистов, 46Б</div>
+              <div class="text-xs text-[#98A2B3]">Рабочая зона студии</div>
+            </div>
+            <span class="font-mono-tech text-xs text-[#C81625]">01</span>
+          </figcaption>
+        </figure>
+
+        <!-- Photo 02 -->
+        <figure class="group relative border border-white/12 hover:border-[#C81625]/70 bg-[#151B24] rounded-[3px] overflow-hidden cursor-pointer fade-rise gallery-item"
+                style="transition-delay: 0.06s;"
+                data-category="box"
+                data-src="https://avatars.mds.yandex.net/get-altay/15434007/2a0000019b7b11d6cb6b749b8619d1284891/XXL"
+                data-title="Студийный свет для инспекции ЛКП"
+                data-sub="Линейное освещение для точного контроля голограмм и микрорисок">
+          <div class="aspect-[4/3] overflow-hidden bg-[#0B0E14]">
+            <img src="https://avatars.mds.yandex.net/get-altay/15434007/2a0000019b7b11d6cb6b749b8619d1284891/XXL"
+                 alt="Студийный свет для инспекции ЛКП" loading="lazy"
+                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                 onerror="this.onerror=null; this.src='https://placehold.co/800x600/151B24/F4F3EF?text=GLBL+LIGHTING+02';">
+          </div>
+          <figcaption class="p-4 flex items-center justify-between gap-3 border-t border-white/10">
+            <div>
+              <div class="text-sm font-semibold text-white">Студийный свет для инспекции ЛКП</div>
+              <div class="text-xs text-[#98A2B3]">Контроль дефектов лака</div>
+            </div>
+            <span class="font-mono-tech text-xs text-[#C81625]">02</span>
+          </figcaption>
+        </figure>
+
+        <!-- Photo 03 -->
+        <figure class="group relative border border-white/12 hover:border-[#C81625]/70 bg-[#151B24] rounded-[3px] overflow-hidden cursor-pointer fade-rise gallery-item"
+                style="transition-delay: 0.12s;"
+                data-category="polish"
+                data-src="https://avatars.mds.yandex.net/get-altay/16480821/2a0000019b7b12217f2ac5c9522b175857ff/XXL"
+                data-title="Подготовка и маскировка элементов"
+                data-sub="Защита резинок, уплотнителей и пластика перед абразивной полировкой">
+          <div class="aspect-[4/3] overflow-hidden bg-[#0B0E14]">
+            <img src="https://avatars.mds.yandex.net/get-altay/16480821/2a0000019b7b12217f2ac5c9522b175857ff/XXL"
+                 alt="Подготовка и маскировка элементов" loading="lazy"
+                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                 onerror="this.onerror=null; this.src='https://placehold.co/800x600/151B24/F4F3EF?text=GLBL+PREP+03';">
+          </div>
+          <figcaption class="p-4 flex items-center justify-between gap-3 border-t border-white/10">
+            <div>
+              <div class="text-sm font-semibold text-white">Подготовка и маскировка элементов</div>
+              <div class="text-xs text-[#98A2B3]">Технология полировки</div>
+            </div>
+            <span class="font-mono-tech text-xs text-[#C81625]">03</span>
+          </figcaption>
+        </figure>
+
+        <!-- Photo 04 -->
+        <figure class="group relative border border-white/12 hover:border-[#C81625]/70 bg-[#151B24] rounded-[3px] overflow-hidden cursor-pointer fade-rise gallery-item"
+                data-category="polish"
+                data-src="https://avatars.mds.yandex.net/get-altay/16480550/2a0000019cb021fbb9e5da0a4564344411a3/XXL"
+                data-title="Зеркальный блеск после полировки"
+                data-sub="Глубокий финишный глянец и гидрофобная керамика без голограмм">
+          <div class="aspect-[4/3] overflow-hidden bg-[#0B0E14]">
+            <img src="https://avatars.mds.yandex.net/get-altay/16480550/2a0000019cb021fbb9e5da0a4564344411a3/XXL"
+                 alt="Зеркальный блеск после полировки" loading="lazy"
+                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                 onerror="this.onerror=null; this.src='https://placehold.co/800x600/151B24/F4F3EF?text=GLBL+GLOSS+04';">
+          </div>
+          <figcaption class="p-4 flex items-center justify-between gap-3 border-t border-white/10">
+            <div>
+              <div class="text-sm font-semibold text-white">Зеркальный блеск после полировки</div>
+              <div class="text-xs text-[#98A2B3]">Результат коррекции ЛКП</div>
+            </div>
+            <span class="font-mono-tech text-xs text-[#C81625]">04</span>
+          </figcaption>
+        </figure>
+
+        <!-- Photo 05 -->
+        <figure class="group relative border border-white/12 hover:border-[#C81625]/70 bg-[#151B24] rounded-[3px] overflow-hidden cursor-pointer fade-rise gallery-item"
+                style="transition-delay: 0.06s;"
+                data-category="optics"
+                data-src="https://avatars.mds.yandex.net/get-altay/17753003/2a0000019cb0222412229deebcebe8c0d023/XXL"
+                data-title="Восстановление прозрачности оптики и стёкол"
+                data-sub="Полировка фар и стёкол от помутнения, царапин и водного камня">
+          <div class="aspect-[4/3] overflow-hidden bg-[#0B0E14]">
+            <img src="https://avatars.mds.yandex.net/get-altay/17753003/2a0000019cb0222412229deebcebe8c0d023/XXL"
+                 alt="Восстановление прозрачности оптики и стёкол" loading="lazy"
+                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                 onerror="this.onerror=null; this.src='https://placehold.co/800x600/151B24/F4F3EF?text=GLBL+OPTICS+05';">
+          </div>
+          <figcaption class="p-4 flex items-center justify-between gap-3 border-t border-white/10">
+            <div>
+              <div class="text-sm font-semibold text-white">Восстановление оптики и стёкол</div>
+              <div class="text-xs text-[#98A2B3]">Прозрачность без замены</div>
+            </div>
+            <span class="font-mono-tech text-xs text-[#C81625]">05</span>
+          </figcaption>
+        </figure>
+
+        <!-- Photo 06 -->
+        <figure class="group relative border border-white/12 hover:border-[#C81625]/70 bg-[#151B24] rounded-[3px] overflow-hidden cursor-pointer fade-rise gallery-item"
+                style="transition-delay: 0.12s;"
+                data-category="polish"
+                data-src="https://avatars.mds.yandex.net/get-altay/16480550/2a0000019cb0227a73ed7c0808f10c4e184b/XXL"
+                data-title="Выдача автомобиля клиенту"
+                data-sub="Финальная проверка при дневном свете и рекомендации по уходу">
+          <div class="aspect-[4/3] overflow-hidden bg-[#0B0E14]">
+            <img src="https://avatars.mds.yandex.net/get-altay/16480550/2a0000019cb0227a73ed7c0808f10c4e184b/XXL"
+                 alt="Выдача автомобиля клиенту" loading="lazy"
+                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                 onerror="this.onerror=null; this.src='https://placehold.co/800x600/151B24/F4F3EF?text=GLBL+HANDOVER+06';">
+          </div>
+          <figcaption class="p-4 flex items-center justify-between gap-3 border-t border-white/10">
+            <div>
+              <div class="text-sm font-semibold text-white">Выдача автомобиля клиенту</div>
+              <div class="text-xs text-[#98A2B3]">Готовый результат</div>
+            </div>
+            <span class="font-mono-tech text-xs text-[#C81625]">06</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 07: VERIFIED YANDEX MAPS REVIEWS (LIGHT CANVAS #F4F3EF)
+       ======================================================================== -->
+  <section id="reviews" class="bg-[#F4F3EF] text-[#0E1218] py-20 md:py-28 border-t border-[#0E1218]/12">
+    <div class="max-w-[1260px] mx-auto px-5 md:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-[#0E1218]/15">
+        <div>
+          <div class="font-mono-tech text-xs uppercase text-[#A4131E] mb-3">[ 07 / РЕПУТАЦИЯ ]</div>
+          <h2 class="font-display text-2xl md:text-4xl font-extrabold uppercase text-[#0E1218] reveal-block">
+            <span class="mask-line"><span class="mask-line-inner">ОТЗЫВЫ НА ЯНДЕКС КАРТАХ</span></span>
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-5">
+          <div class="font-display text-4xl md:text-5xl font-black text-[#0E1218]">5,0</div>
+          <div class="border-l border-[#0E1218]/20 pl-5">
+            <div class="text-sm font-bold text-[#0E1218]">Награда «Хорошее место 2026»</div>
+            <div class="font-mono-tech text-xs text-[#525B69] mt-0.5">50 ПОДТВЕРЖДЁННЫХ ОТЗЫВОВ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <article class="bg-[#FFFFFF] border border-[#0E1218]/15 rounded-[3px] p-7 flex flex-col justify-between fade-rise">
+          <div>
+            <div class="flex items-center justify-between mb-5 pb-4 border-b border-[#0E1218]/10">
+              <div>
+                <h3 class="font-bold text-base text-[#0E1218]">Никита Черный</h3>
+                <div class="text-xs text-[#A4131E] tracking-widest mt-0.5">★★★★★</div>
+              </div>
+              <span class="font-mono-tech text-[10px] uppercase px-2 py-1 bg-[#F4F3EF] text-[#525B69]">ЯНДЕКС</span>
+            </div>
+            <p class="text-[14.5px] text-[#333B47] leading-relaxed">
+              «Давно раздражали царапины на боковых стёклах, приехал к ребятам, и мою проблему быстро и грамотно устранили. Приятный сервис, специалисты знают свою работу, в боксе чисто и уютно. Результатом доволен — такими стёкла не были даже с завода, обязательно вернусь на полировку и оклейку фар!»
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-[#0E1218]/10 font-mono-tech text-[11px] uppercase text-[#525B69]">
+            УСЛУГА: ПОЛИРОВКА БОКОВЫХ СТЁКОЛ
+          </div>
+        </article>
+
+        <article class="bg-[#FFFFFF] border border-[#0E1218]/15 rounded-[3px] p-7 flex flex-col justify-between fade-rise" style="transition-delay: 0.08s;">
+          <div>
+            <div class="flex items-center justify-between mb-5 pb-4 border-b border-[#0E1218]/10">
+              <div>
+                <h3 class="font-bold text-base text-[#0E1218]">Софья</h3>
+                <div class="text-xs text-[#A4131E] tracking-widest mt-0.5">★★★★★</div>
+              </div>
+              <span class="font-mono-tech text-[10px] uppercase px-2 py-1 bg-[#F4F3EF] text-[#525B69]">ЯНДЕКС</span>
+            </div>
+            <p class="text-[14.5px] text-[#333B47] leading-relaxed">
+              «Обратилась за ремонтом сколов и полировкой фар — результат превзошёл ожидания. Сколы аккуратно устранили, покрытие выглядит как заводское, никаких пятен. Фары после полировки стали заметно прозрачнее и ярче, свет теперь гораздо лучше!»
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-[#0E1218]/10 font-mono-tech text-[11px] uppercase text-[#525B69]">
+            УСЛУГА: РЕМОНТ СКОЛОВ И ПОЛИРОВКА ФАР
+          </div>
+        </article>
+
+        <article class="bg-[#FFFFFF] border border-[#0E1218]/15 rounded-[3px] p-7 flex flex-col justify-between fade-rise" style="transition-delay: 0.16s;">
+          <div>
+            <div class="flex items-center justify-between mb-5 pb-4 border-b border-[#0E1218]/10">
+              <div>
+                <h3 class="font-bold text-base text-[#0E1218]">Александр Никандрин</h3>
+                <div class="text-xs text-[#A4131E] tracking-widest mt-0.5">★★★★★</div>
+              </div>
+              <span class="font-mono-tech text-[10px] uppercase px-2 py-1 bg-[#F4F3EF] text-[#525B69]">ЯНДЕКС</span>
+            </div>
+            <p class="text-[14.5px] text-[#333B47] leading-relaxed">
+              «Никита отличный профессионал своего дела! Обратился с уже большой трещиной на лобовом, сделал всё по высшему разряду, практически не видно. Всё объяснил, дал советы. Очень приятный человек, который делает работу на 100% качественно!»
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-[#0E1218]/10 font-mono-tech text-[11px] uppercase text-[#525B69]">
+            УСЛУГА: РЕМОНТ ТРЕЩИНЫ ЛОБОВОГО СТЕКЛА
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 08: CONTACTS & YANDEX MAP (DARK CHARCOAL CANVAS)
+       ======================================================================== -->
+  <section id="contacts" class="bg-[#0E1218] text-[#F4F3EF] py-20 md:py-28 border-t border-white/10">
+    <div class="max-w-[1340px] mx-auto px-5 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
+        <div class="lg:col-span-5 flex flex-col justify-between">
+          <div>
+            <div class="font-mono-tech text-xs uppercase text-[#C81625] mb-3">[ 08 / КАК НАС НАЙТИ ]</div>
+            <h2 class="font-display text-2xl md:text-4xl font-extrabold uppercase text-white mb-6 reveal-block">
+              <span class="mask-line"><span class="mask-line-inner">КОНТАКТЫ СТУДИИ</span></span>
+            </h2>
+            <p class="text-sm text-[#98A2B3] mb-8 leading-relaxed">
+              Приезжайте на бесплатный осмотр сколов, трещин или состояния ЛКП. Мастер Никита подберёт оптимальное решение без навязывания лишних работ.
+            </p>
+
+            <dl class="divide-y divide-white/10 border-t border-b border-white/10 mb-8">
+              <div class="py-4 flex flex-col sm:flex-row sm:justify-between gap-1">
+                <dt class="font-mono-tech text-xs uppercase text-[#98A2B3]">АДРЕС</dt>
+                <dd class="text-sm font-medium text-white sm:text-right">г. Краснодар, мкр. Юбилейный,<br>пр-т Чекистов, 46Б (ПГСК-32)</dd>
+              </div>
+              <div class="py-4 flex flex-col sm:flex-row sm:justify-between gap-1">
+                <dt class="font-mono-tech text-xs uppercase text-[#98A2B3]">ТЕЛЕФОН</dt>
+                <dd class="font-mono-tech text-sm font-semibold text-white">
+                  <a href="tel:+79528222243" class="hover:text-[#C81625] transition-colors">+7 (952) 822-22-43</a>
+                </dd>
+              </div>
+              <div class="py-4 flex flex-col sm:flex-row sm:justify-between gap-1">
+                <dt class="font-mono-tech text-xs uppercase text-[#98A2B3]">РЕЖИМ РАБОТЫ</dt>
+                <dd class="text-sm text-white sm:text-right">Ежедневно 10:00 – 21:00<br><span class="text-xs text-[#98A2B3]">по предварительной записи</span></dd>
+              </div>
+              <div class="py-4 flex flex-col sm:flex-row sm:justify-between gap-1">
+                <dt class="font-mono-tech text-xs uppercase text-[#98A2B3]">УДОБСТВА</dt>
+                <dd class="text-sm text-[#D1D6DF] sm:text-right">Парковка, Wi-Fi, Pet-Friendly</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="space-y-3">
+            <button type="button" data-open-booking class="btn-sharp btn-crimson w-full magnetic-btn">
+              <span>Онлайн-запись в бокс</span>
+            </button>
+            <div class="grid grid-cols-2 gap-3">
+              <a href="https://wa.me/79528222243?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D1%82%D1%8C%20%D0%BF%D0%BE%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8." target="_blank" rel="noopener noreferrer" class="btn-sharp btn-outline-dark text-xs">
+                <svg class="w-[17px] h-[17px] shrink-0 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 2C6.51 2 2.02 6.49 2.02 12.01c0 1.76.46 3.48 1.33 4.99L2 22l5.15-1.35a9.97 9.97 0 0 0 4.88 1.27h.01c5.52 0 10.01-4.49 10.01-10.01 0-2.67-1.04-5.19-2.93-7.08A9.94 9.94 0 0 0 12.031 2zm5.84 14.13c-.25.7-1.44 1.33-2 1.42-.52.08-1.18.11-1.91-.12-.44-.14-1.01-.33-1.74-.64-3.06-1.32-5.06-4.41-5.21-4.61-.15-.2-1.24-1.65-1.24-3.15s.78-2.23 1.06-2.54c.28-.3.61-.38.81-.38.2 0 .41.01.59.01.19.01.44-.07.69.53.25.61.86 2.1.94 2.25.08.15.13.33.03.53-.1.2-.15.33-.3.5-.15.18-.32.4-.46.53-.15.15-.31.31-.13.61.18.3.79 1.3 1.69 2.11 1.16 1.04 2.14 1.36 2.45 1.51.3.15.48.13.66-.08.18-.2.76-.89.96-1.19.2-.3.41-.25.68-.15.28.1 1.77.83 2.07.98.3.15.51.23.58.36.08.13.08.73-.17 1.43z"/></svg>
+                <span>Написать в WhatsApp</span>
+              </a>
+              <a href="https://t.me/glbl_detailing" target="_blank" rel="noopener noreferrer" class="btn-sharp btn-outline-dark text-xs">
+                <svg class="w-[17px] h-[17px] shrink-0 text-[#29A9EB]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.96-.75 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.35-1.77 4.84-1.78.11 0 .35.03.5.16.13.1.17.24.18.34.01.07.03.29.01.47z"/></svg>
+                <span>Написать в Telegram</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 flex flex-col">
+          <!-- Yandex Map -->
+          <div class="flex-1 min-h-[380px] lg:min-h-[460px] relative border border-white/15 bg-[#151B24] p-2 rounded-[3px]">
+            <div class="relative w-full h-full min-h-[364px]">
+              <iframe
+                src="https://yandex.ru/map-widget/v1/?ll=38.922241%2C45.034126&z=16&pt=38.922241%2C45.034126~org:244606687002"
+                title="Глобал Детейлинг на Яндекс Картах — пр-т Чекистов, 46Б"
+                loading="lazy"
+                allowfullscreen="true"
+                class="yandex-map-frame"
+              ></iframe>
+              <div class="absolute top-3 left-3 bg-[#0E1218] border border-white/20 px-3 py-1.5 font-mono-tech text-[11px] uppercase text-white pointer-events-none">
+                45.034126, 38.922241 • ЧЕКИСТОВ, 46Б
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="bg-[#090C11] border-t border-white/10 py-10 text-[#98A2B3]">
+    <div class="max-w-[1340px] mx-auto px-5 md:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div class="flex items-center gap-3.5">
+        <svg width="36" height="36" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="88" height="88" rx="6" fill="#A4131E"/>
+          <g transform="skewX(-12) translate(11, 0)">
+            <path d="M18 33H5.5C3.5 33 2 34.5 2 36.5V43.5C2 45.5 3.5 47 5.5 47H17.5V40.5H10.5V42.8H14V44.4H6.2V35.6H18V33Z" fill="#FFFFFF"/>
+            <path d="M21.5 33H25.2V44.2H35.5V47H21.5V33Z" fill="#FFFFFF"/>
+            <path d="M38.5 33H51.5C53.3 33 54.5 34.1 54.5 35.8C54.5 37.2 53.7 38.2 52.3 38.7C54 39.2 55 40.4 55 42.1C55 44.1 53.5 47 51 47H38.5V33ZM42.2 35.5V38.1H49.8C50.6 38.1 51.1 37.6 51.1 36.8C51.1 36 50.6 35.5 49.8 35.5H42.2ZM42.2 40.5V44.4H50.1C51 44.4 51.5 43.8 51.5 42.4C51.5 41.2 51 40.5 50.1 40.5H42.2Z" fill="#FFFFFF"/>
+            <path d="M58.5 33H62.2V44.2H72.5V47H58.5V33Z" fill="#FFFFFF"/>
+          </g>
+          <rect x="11" y="54" width="66" height="1" fill="rgba(255,255,255,0.45)"/>
+          <text x="44" y="66" text-anchor="middle" fill="#FFFFFF" font-family="Manrope, sans-serif" font-size="8.2" font-weight="700" letter-spacing="2.3">ДЕТЕЙЛИНГ</text>
+        </svg>
+        <div>
+          <div class="text-xs font-semibold text-white uppercase tracking-wider">Глобал Детейлинг (GLBL)</div>
+          <div class="font-mono-tech text-[11px]">© 2026 • Краснодар, пр-т Чекистов, 46Б</div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs">
+        <a href="#showcase" class="hover:text-white transition-colors">Направления</a>
+        <a href="#services" class="hover:text-white transition-colors">Услуги</a>
+        <a href="#process" class="hover:text-white transition-colors">Этапы</a>
+        <a href="#calculator" class="hover:text-white transition-colors">Калькулятор</a>
+        <a href="#gallery" class="hover:text-white transition-colors">Галерея</a>
+        <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       SLIDE-OVER BOOKING DRAWER
+       ======================================================================== -->
+  <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+
+  <aside class="booking-drawer" id="bookingDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+    <div class="px-6 py-5 bg-[#0E1218] text-white flex items-center justify-between border-b border-white/12 shrink-0">
+      <div>
+        <div class="font-mono-tech text-[10px] uppercase text-[#C81625]">ПР-Т ЧЕКИСТОВ, 46Б • ПО ЗАПИСИ</div>
+        <h2 id="drawerTitle" class="font-display text-lg font-extrabold uppercase mt-0.5">ЗАПИСЬ В СТУДИЮ</h2>
+      </div>
+      <button type="button" id="closeDrawerBtn" class="w-9 h-9 border border-white/25 text-white hover:bg-[#A4131E] hover:border-[#A4131E] flex items-center justify-center transition-colors rounded-[2px]" aria-label="Закрыть окно записи">
+        ✕
+      </button>
+    </div>
+
+    <form id="drawerBookingForm" class="p-6 overflow-y-auto flex-1 space-y-5" novalidate>
+      <div id="drawerPrefillBanner" class="hidden p-3.5 bg-[#FFFFFF] border-l-2 border-[#A4131E] text-xs text-[#0E1218]"></div>
+      <div id="drawerErrorBox" class="hidden p-3 bg-[#A4131E] text-white text-xs font-medium rounded-[2px]"></div>
+
+      <div>
+        <label for="bookServiceSelect" class="block font-mono-tech text-[11px] uppercase text-[#525B69] mb-1.5">ОСНОВНАЯ УСЛУГА *</label>
+        <select id="bookServiceSelect" class="drawer-input" required>
+          <option value="Ремонт сколов и трещин на стекле">Ремонт сколов и трещин на стекле</option>
+          <option value="Полировка стёкол и антидождь">Полировка стёкол и антидождь</option>
+          <option value="Полировка кузова + керамика">Полировка кузова + керамика</option>
+          <option value="Среднеабразивная / глубокая полировка кузова">Среднеабразивная / глубокая полировка кузова</option>
+          <option value="Ремонт сколов и царапин на кузове">Ремонт сколов и царапин на кузове (договорная)</option>
+          <option value="Комплекс по расчёту калькулятора">Комплекс по расчёту калькулятора</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="bookCarInput" class="block font-mono-tech text-[11px] uppercase text-[#525B69] mb-1.5">МАРКА И МОДЕЛЬ АВТОМОБИЛЯ *</label>
+        <input type="text" id="bookCarInput" class="drawer-input" placeholder="Например: BMW M5 F90" required>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="bookDateInput" class="block font-mono-tech text-[11px] uppercase text-[#525B69] mb-1.5">ЖЕЛАЕМАЯ ДАТА *</label>
+          <input type="date" id="bookDateInput" class="drawer-input" required>
+        </div>
+        <div>
+          <label class="block font-mono-tech text-[11px] uppercase text-[#525B69] mb-1.5">ВРЕМЯ ЗАЕЗДА</label>
+          <div class="flex flex-wrap gap-1.5" id="timeSlotsGroup">
+            <button type="button" class="slot-chip is-active" data-slot="10:00">10:00</button>
+            <button type="button" class="slot-chip" data-slot="12:00">12:00</button>
+            <button type="button" class="slot-chip" data-slot="14:00">14:00</button>
+            <button type="button" class="slot-chip" data-slot="16:00">16:00</button>
+            <button type="button" class="slot-chip" data-slot="18:00">18:00</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="bookNameInput" class="block font-mono-tech text-[11px] uppercase text-[#525B69] mb-1.5">ВАШЕ ИМЯ *</label>
+          <input type="text" id="bookNameInput" class="drawer-input" placeholder="Алексей" required>
+        </div>
+        <div>
+          <label for="bookPhoneInput" class="block font-mono-tech text-[11px] uppercase text-[#525B69] mb-1.5">ТЕЛЕФОН *</label>
+          <input type="tel" id="bookPhoneInput" class="drawer-input" placeholder="+7 (999) 000-00-00" required>
+        </div>
+      </div>
+
+      <div>
+        <label for="bookNotesInput" class="block font-mono-tech text-[11px] uppercase text-[#525B69] mb-1.5">КОММЕНТАРИЙ / ОПИСАНИЕ ПОВРЕЖДЕНИЯ</label>
+        <textarea id="bookNotesInput" rows="3" class="drawer-input resize-none" placeholder="Уточните характер скола, трещины или желаемый комплекс..."></textarea>
+      </div>
+
+      <div class="pt-2 space-y-2.5">
+        <button type="submit" class="btn-sharp btn-crimson w-full">
+          <svg class="w-[17px] h-[17px] shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 2C6.51 2 2.02 6.49 2.02 12.01c0 1.76.46 3.48 1.33 4.99L2 22l5.15-1.35a9.97 9.97 0 0 0 4.88 1.27h.01c5.52 0 10.01-4.49 10.01-10.01 0-2.67-1.04-5.19-2.93-7.08A9.94 9.94 0 0 0 12.031 2zm5.84 14.13c-.25.7-1.44 1.33-2 1.42-.52.08-1.18.11-1.91-.12-.44-.14-1.01-.33-1.74-.64-3.06-1.32-5.06-4.41-5.21-4.61-.15-.2-1.24-1.65-1.24-3.15s.78-2.23 1.06-2.54c.28-.3.61-.38.81-.38.2 0 .41.01.59.01.19.01.44-.07.69.53.25.61.86 2.1.94 2.25.08.15.13.33.03.53-.1.2-.15.33-.3.5-.15.18-.32.4-.46.53-.15.15-.31.31-.13.61.18.3.79 1.3 1.69 2.11 1.16 1.04 2.14 1.36 2.45 1.51.3.15.48.13.66-.08.18-.2.76-.89.96-1.19.2-.3.41-.25.68-.15.28.1 1.77.83 2.07.98.3.15.51.23.58.36.08.13.08.73-.17 1.43z"/></svg>
+          <span>Подтвердить запись в WhatsApp</span>
+        </button>
+        <button type="button" id="submitBookingTelegram" class="btn-sharp btn-dark-solid w-full">
+          <svg class="w-[17px] h-[17px] shrink-0 text-[#29A9EB]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.96-.75 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.35-1.77 4.84-1.78.11 0 .35.03.5.16.13.1.17.24.18.34.01.07.03.29.01.47z"/></svg>
+          <span>Отправить заявку в Telegram</span>
+        </button>
+        <p class="text-[11px] text-[#525B69] leading-snug pt-1">
+          Заявка откроется в выбранном мессенджере с готовым текстом для мастера Никиты. Без очередей и ожидания.
+        </p>
+      </div>
+    </form>
+  </aside>
+
+  <!-- ========================================================================
+       LIGHTBOX MODAL
+       ======================================================================== -->
+  <div class="lightbox-overlay" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии студии" aria-hidden="true">
+    <div class="relative w-full max-w-[980px] bg-[#0E1218] border border-white/18 rounded-[3px]">
+      <div class="flex items-center justify-between px-5 py-3.5 border-b border-white/12">
+        <div class="font-mono-tech text-xs text-[#98A2B3]" id="lbCounter">01 / 06</div>
+        <button type="button" id="lbCloseBtn" class="w-8 h-8 border border-white/20 text-white hover:bg-[#A4131E] hover:border-[#A4131E] flex items-center justify-center text-sm rounded-[2px]" aria-label="Закрыть просмотр">✕</button>
+      </div>
+
+      <div class="relative bg-[#080A0F] flex items-center justify-center max-h-[68vh] overflow-hidden">
+        <button type="button" id="lbPrevBtn" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#0E1218]/90 border border-white/25 text-white hover:bg-[#A4131E] flex items-center justify-center z-10 rounded-[2px]" aria-label="Предыдущее фото">←</button>
+        <img id="lbImage" src="" alt="" class="max-h-[68vh] w-auto max-w-full object-contain">
+        <button type="button" id="lbNextBtn" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#0E1218]/90 border border-white/25 text-white hover:bg-[#A4131E] flex items-center justify-center z-10 rounded-[2px]" aria-label="Следующее фото">→</button>
+      </div>
+
+      <div class="px-5 py-4 border-t border-white/12 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h3 id="lbTitle" class="text-sm font-bold text-white"></h3>
+          <p id="lbSub" class="text-xs text-[#98A2B3] mt-0.5"></p>
+        </div>
+        <button type="button" id="lbBookBtn" class="btn-sharp btn-crimson !py-2 !px-4 text-xs shrink-0">
+          <span>Записаться в студию</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MOTION CHOREOGRAPHY & INTERACTIVE MODULES
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      const REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function bootApp() {
+        const modules = [
+          initPreloaderAndHeroReveal,
+          initScrollProgressAndSpy,
+          initScrollRevealAndArchLines,
+          initAnimatedCounters,
+          initMobileMenu,
+          initDualVelocityMarquee,
+          initExpandingShowcase,
+          initServiceCardTilt,
+          initProcessTimeline,
+          initMagneticButtons,
+          initCalculator,
+          initBookingDrawer,
+          initGalleryFilterAndLightbox
+        ];
+
+        modules.forEach((initFn) => {
+          try {
+            initFn();
+          } catch (err) {
+            console.error('[GLBL Init Error]', initFn.name, err);
+          }
+        });
+      }
+
+      if (document.readyState === 'complete') {
+        bootApp();
+      } else {
+        window.addEventListener('load', bootApp);
+      }
+
+      /* ----------------------------------------------------------------------
+         1. PRELOADER DIAGONAL WIPE & HERO REVEAL CHOREOGRAPHY
+         ---------------------------------------------------------------------- */
+      function initPreloaderAndHeroReveal() {
+        const preloader = document.getElementById('glblPreloader');
+        const heroHeadline = document.getElementById('heroHeadline');
+        const heroReveals = document.querySelectorAll('.hero-reveal');
+        const heroArch = document.getElementById('heroArchFrame');
+        const heroRibbon = document.getElementById('heroCornerRibbon');
+
+        const revealHero = () => {
+          if (heroHeadline) heroHeadline.classList.add('is-revealed');
+          heroReveals.forEach((el) => el.classList.add('is-revealed'));
+          if (heroArch) heroArch.classList.add('arch-drawn');
+          if (heroRibbon) heroRibbon.classList.add('arch-drawn');
+        };
+
+        if (!preloader || REDUCED_MOTION) {
+          if (preloader) preloader.classList.add('is-done');
+          revealHero();
+          return;
+        }
+
+        requestAnimationFrame(() => {
+          preloader.classList.add('is-seam-drawn');
+          setTimeout(() => {
+            preloader.classList.add('is-exiting');
+            revealHero();
+          }, 260);
+          setTimeout(() => {
+            preloader.classList.add('is-done');
+          }, 940);
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         2. SCROLL HAIRLINE PROGRESS & ACTIVE NAV SPY
+         ---------------------------------------------------------------------- */
+      function initScrollProgressAndSpy() {
+        const bar = document.getElementById('scrollProgressBar');
+        const sections = ['showcase', 'services', 'process', 'calculator', 'gallery', 'reviews', 'contacts']
+          .map((id) => document.getElementById(id))
+          .filter(Boolean);
+        const navLinks = Array.from(document.querySelectorAll('.nav-item'));
+
+        const update = () => {
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+          if (bar) bar.style.transform = `scaleX(${pct})`;
+
+          let activeId = '';
+          const triggerY = window.innerHeight * 0.38;
+          for (const sec of sections) {
+            if (sec.getBoundingClientRect().top <= triggerY) activeId = sec.id;
+          }
+          navLinks.forEach((link) => {
+            link.classList.toggle('is-active', link.getAttribute('href') === `#${activeId}`);
+          });
+        };
+
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+      }
+
+      /* ----------------------------------------------------------------------
+         4. SCROLL REVEALS & SELF-DRAWING 1PX ARCHITECTURAL FRAMES
+         ---------------------------------------------------------------------- */
+      function initScrollRevealAndArchLines() {
+        const revealEls = document.querySelectorAll('.reveal-block, .fade-rise:not(.hero-reveal)');
+        const archContainers = document.querySelectorAll('[data-arch-draw]');
+
+        if (REDUCED_MOTION || !('IntersectionObserver' in window)) {
+          revealEls.forEach((el) => el.classList.add('is-revealed'));
+          archContainers.forEach((el) => el.classList.add('arch-drawn'));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                if (entry.target.hasAttribute('data-arch-draw')) {
+                  entry.target.classList.add('arch-drawn');
+                } else {
+                  entry.target.classList.add('is-revealed');
+                }
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.14 }
+        );
+
+        revealEls.forEach((el) => observer.observe(el));
+        archContainers.forEach((el) => observer.observe(el));
+      }
+
+      /* ----------------------------------------------------------------------
+         5. ANIMATED NUMBER COUNTERS (5.0, 50+, 15%, 100%)
+         ---------------------------------------------------------------------- */
+      function initAnimatedCounters() {
+        const counters = document.querySelectorAll('.counter-val');
+        if (!counters.length) return;
+
+        const animateOne = (el) => {
+          const target = parseFloat(el.getAttribute('data-target')) || 0;
+          const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+          const suffix = el.getAttribute('data-suffix') || '';
+
+          if (REDUCED_MOTION) {
+            el.textContent = target.toFixed(decimals).replace('.', ',') + suffix;
+            return;
+          }
+
+          const duration = 1250;
+          const start = performance.now();
+
+          function frame(now) {
+            const p = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - p, 3);
+            const val = target * eased;
+            el.textContent = val.toFixed(decimals).replace('.', ',') + suffix;
+            if (p < 1) requestAnimationFrame(frame);
+          }
+          requestAnimationFrame(frame);
+        };
+
+        if (!('IntersectionObserver' in window)) {
+          counters.forEach(animateOne);
+          return;
+        }
+
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateOne(entry.target);
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.3 });
+
+        counters.forEach((c) => io.observe(c));
+      }
+
+      /* ----------------------------------------------------------------------
+         6. MOBILE NAVIGATION DRAWER
+         ---------------------------------------------------------------------- */
+      function initMobileMenu() {
+        const btn = document.getElementById('mobileMenuBtn');
+        const panel = document.getElementById('mobileMenuPanel');
+        const topBar = document.getElementById('burgerTop');
+        const botBar = document.getElementById('burgerBot');
+        if (!btn || !panel) return;
+
+        const setOpen = (open) => {
+          panel.classList.toggle('is-open', open);
+          btn.setAttribute('aria-expanded', String(open));
+          if (topBar && botBar) {
+            topBar.style.transform = open ? 'translateY(3.75px) rotate(45deg)' : '';
+            botBar.style.transform = open ? 'translateY(-3.75px) rotate(-45deg)' : '';
+          }
+        };
+
+        btn.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')));
+        panel.querySelectorAll('.mobile-nav-link').forEach((link) => {
+          link.addEventListener('click', () => setOpen(false));
+        });
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 1280) setOpen(false);
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         7. DUAL SCROLL-VELOCITY MARQUEE (DIRECTION + SPEED REACTIVE)
+         ---------------------------------------------------------------------- */
+      function initDualVelocityMarquee() {
+        const topRow = document.getElementById('marqueeRowTop');
+        const botRow = document.getElementById('marqueeRowBottom');
+        if (!topRow || !botRow || REDUCED_MOTION) return;
+
+        let offsetTop = 0;
+        let offsetBot = 0;
+        let lastScrollY = window.scrollY;
+        let scrollDir = 1;
+        let velocityBoost = 0;
+
+        window.addEventListener('scroll', () => {
+          const diff = window.scrollY - lastScrollY;
+          lastScrollY = window.scrollY;
+          if (Math.abs(diff) > 0.5) {
+            scrollDir = diff > 0 ? 1 : -1;
+            velocityBoost = Math.min(6.0, velocityBoost + Math.abs(diff) * 0.08);
+          }
+        }, { passive: true });
+
+        function tick() {
+          const halfTop = topRow.scrollWidth / 2;
+          const halfBot = botRow.scrollWidth / 2;
+          const speed = 0.55 + velocityBoost;
+
+          if (halfTop > 0) {
+            offsetTop = (offsetTop + speed * scrollDir) % halfTop;
+            if (offsetTop < 0) offsetTop += halfTop;
+            topRow.style.transform = `translate3d(${-offsetTop}px, 0, 0)`;
+          }
+
+          if (halfBot > 0) {
+            offsetBot = (offsetBot - speed * 0.85 * scrollDir) % halfBot;
+            if (offsetBot < 0) offsetBot += halfBot;
+            botRow.style.transform = `translate3d(${-offsetBot}px, 0, 0)`;
+          }
+
+          velocityBoost *= 0.92;
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      /* ----------------------------------------------------------------------
+         8. 4-COLUMN KINETIC EXPANDING SHOWCASE
+         ---------------------------------------------------------------------- */
+      function initExpandingShowcase() {
+        const panels = Array.from(document.querySelectorAll('.showcase-panel'));
+        if (!panels.length) return;
+
+        const activate = (target) => {
+          panels.forEach((p) => p.classList.toggle('is-expanded', p === target));
+        };
+
+        panels.forEach((panel) => {
+          panel.addEventListener('mouseenter', () => {
+            if (window.innerWidth > 1024) activate(panel);
+          });
+          panel.addEventListener('click', (e) => {
+            if (e.target.closest('button')) return;
+            activate(panel);
+          });
+          panel.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              activate(panel);
+            }
+          });
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         9. SUBTLE 3D TILT + STUDIO SHEEN SWEEP ON SERVICE CARDS
+         ---------------------------------------------------------------------- */
+      function initServiceCardTilt() {
+        if (REDUCED_MOTION || window.matchMedia('(pointer: coarse)').matches) return;
+
+        document.querySelectorAll('.tilt-card').forEach((card) => {
+          const sheen = card.querySelector('.tilt-card-sheen');
+
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const nx = (e.clientX - rect.left) / rect.width - 0.5;
+            const ny = (e.clientY - rect.top) / rect.height - 0.5;
+            const rx = (-ny * 4.5).toFixed(2);
+            const ry = (nx * 4.5).toFixed(2);
+            card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+            if (sheen) {
+              sheen.style.transform = `translateX(${(nx * 140).toFixed(1)}%)`;
+            }
+          });
+
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            if (sheen) sheen.style.transform = 'translateX(-100%)';
+          });
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         9. SCROLL-PROGRESS PROCESS TIMELINE
+         ---------------------------------------------------------------------- */
+      function initProcessTimeline() {
+        const root = document.getElementById('processTimelineRoot');
+        const line = document.getElementById('processProgressLine');
+        const statusLabel = document.getElementById('processStatusLabel');
+        const steps = Array.from(document.querySelectorAll('.process-step-card'));
+        if (!root || !steps.length) return;
+
+        const updateTimeline = () => {
+          const rect = root.getBoundingClientRect();
+          const vh = window.innerHeight;
+          // 0 when top enters lower viewport, 1 when bottom passes upper-mid viewport
+          const raw = (vh * 0.78 - rect.top) / (rect.height + vh * 0.28);
+          const progress = Math.min(1, Math.max(0.08, raw));
+
+          if (line) {
+            line.style.transform = `scaleX(${progress.toFixed(3)})`;
+          }
+
+          const activeStepIdx = Math.min(steps.length - 1, Math.floor(progress * steps.length));
+          steps.forEach((card, idx) => {
+            card.classList.toggle('is-step-active', idx <= activeStepIdx);
+          });
+
+          if (statusLabel) {
+            statusLabel.textContent = `ЭТАП 0${activeStepIdx + 1} / 04`;
+          }
+        };
+
+        window.addEventListener('scroll', updateTimeline, { passive: true });
+        updateTimeline();
+      }
+
+      /* ----------------------------------------------------------------------
+         10. MAGNETIC BUTTONS (MAX 6PX PULL)
+         ---------------------------------------------------------------------- */
+      function initMagneticButtons() {
+        if (REDUCED_MOTION || window.matchMedia('(pointer: coarse)').matches) return;
+
+        document.querySelectorAll('.magnetic-btn').forEach((btn) => {
+          btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const pullX = Math.max(-6, Math.min(6, ((e.clientX - rect.left) / rect.width - 0.5) * 12));
+            const pullY = Math.max(-6, Math.min(6, ((e.clientY - rect.top) / rect.height - 0.5) * 12));
+            btn.style.transform = `translate3d(${pullX.toFixed(1)}px, ${pullY.toFixed(1)}px, 0)`;
+          });
+          btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate3d(0, 0, 0)';
+          });
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         13. INTERACTIVE CALCULATOR WITH SMOOTH NUMBER ROLL
+         ---------------------------------------------------------------------- */
+      let latestCalcSummary = null;
+
+      function initCalculator() {
+        const classBtns = document.querySelectorAll('.calc-class-btn');
+        const serviceChecks = document.querySelectorAll('#calcServicesList .calc-checkbox');
+        const svoToggle = document.getElementById('svoDiscountToggle');
+        const receiptClass = document.getElementById('receiptClassLabel');
+        const receiptItems = document.getElementById('receiptItems');
+        const originalTotalEl = document.getElementById('calcOriginalTotal');
+        const finalTotalEl = document.getElementById('calcFinalTotal');
+        const discountNoteEl = document.getElementById('calcDiscountNote');
+        const negotiableNoteEl = document.getElementById('calcNegotiableNote');
+        const waLink = document.getElementById('calcWaLink');
+        const tgLink = document.getElementById('calcTgLink');
+        const transferBtn = document.getElementById('transferToBookingBtn');
+        const heroSvoBtn = document.getElementById('applySvoFromHero');
+
+        if (!finalTotalEl) return;
+
+        let mult = 1.0;
+        let classLabel = 'Седан / Купе';
+        let displayedTotal = 4000;
+        let rollAnimId = null;
+
+        const formatRub = (n) => Math.round(n).toLocaleString('ru-RU') + ' ₽';
+
+        const rollTotalTo = (targetValue, isNegotiableOnly) => {
+          if (rollAnimId) cancelAnimationFrame(rollAnimId);
+          if (isNegotiableOnly) {
+            finalTotalEl.textContent = 'Договорная';
+            displayedTotal = 0;
+            return;
+          }
+          if (targetValue === 0) {
+            finalTotalEl.textContent = '0 ₽';
+            displayedTotal = 0;
+            return;
+          }
+          if (REDUCED_MOTION) {
+            displayedTotal = targetValue;
+            finalTotalEl.textContent = `от ${formatRub(targetValue)}`;
+            return;
+          }
+
+          const startVal = displayedTotal;
+          const startTime = performance.now();
+          const dur = 360;
+
+          function step(now) {
+            const p = Math.min(1, (now - startTime) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            displayedTotal = startVal + (targetValue - startVal) * eased;
+            finalTotalEl.textContent = `от ${formatRub(displayedTotal)}`;
+            if (p < 1) {
+              rollAnimId = requestAnimationFrame(step);
+            } else {
+              displayedTotal = targetValue;
+              finalTotalEl.textContent = `от ${formatRub(targetValue)}`;
+            }
+          }
+          rollAnimId = requestAnimationFrame(step);
+        };
+
+        const recalculate = () => {
+          let subtotal = 0;
+          let hasNegotiable = false;
+          const chosenList = [];
+
+          serviceChecks.forEach((cb) => {
+            const base = parseInt(cb.getAttribute('data-base'), 10) || 0;
+            const isFixed = cb.getAttribute('data-fixed') === 'true';
+            const isNegotiable = cb.getAttribute('data-negotiable') === 'true';
+            const itemPrice = isNegotiable ? 0 : (isFixed ? base : Math.round((base * mult) / 100) * 100);
+
+            const priceTag = cb.closest('.calc-service-row')?.querySelector('.calc-item-price');
+            if (priceTag && !isNegotiable) priceTag.textContent = `от ${formatRub(itemPrice)}`;
+
+            if (cb.checked) {
+              const name = cb.getAttribute('data-name') || '';
+              if (isNegotiable) {
+                hasNegotiable = true;
+                chosenList.push({ name, priceText: 'договорная' });
+              } else {
+                subtotal += itemPrice;
+                chosenList.push({ name, priceText: `от ${formatRub(itemPrice)}` });
+              }
+            }
+          });
+
+          const svoActive = Boolean(svoToggle && svoToggle.checked);
+          const finalSum = svoActive ? Math.round(subtotal * 0.85) : subtotal;
+          const savings = subtotal - finalSum;
+
+          if (receiptClass) receiptClass.textContent = classLabel;
+
+          if (receiptItems) {
+            if (!chosenList.length) {
+              receiptItems.innerHTML = `<div class="text-xs text-[#525B69] py-4">Отметьте хотя бы одну услугу слева для расчёта стоимости.</div>`;
+            } else {
+              receiptItems.innerHTML = chosenList
+                .map(
+                  (item) =>
+                    `<div class="flex items-start justify-between gap-3">
+                      <span class="text-[#0E1218]">${item.name}</span>
+                      <span class="font-mono-tech text-xs font-semibold text-[#525B69] shrink-0">${item.priceText}</span>
+                    </div>`
+                )
+                .join('');
+            }
+          }
+
+          rollTotalTo(finalSum, subtotal === 0 && hasNegotiable);
+
+          if (subtotal > 0 && svoActive && savings > 0) {
+            originalTotalEl.textContent = `от ${formatRub(subtotal)}`;
+            originalTotalEl.classList.remove('hidden');
+            discountNoteEl.textContent = `Скидка 15% (СВО): −${formatRub(savings)}`;
+            discountNoteEl.classList.remove('hidden');
+          } else {
+            originalTotalEl.classList.add('hidden');
+            discountNoteEl.classList.add('hidden');
+          }
+
+          if (negotiableNoteEl) {
+            negotiableNoteEl.classList.toggle('hidden', !(hasNegotiable && subtotal > 0));
+          }
+
+          const isEmpty = chosenList.length === 0;
+          [transferBtn].forEach((el) => {
+            if (!el) return;
+            el.style.opacity = isEmpty ? '0.45' : '1';
+            el.style.pointerEvents = isEmpty ? 'none' : 'auto';
+          });
+
+          latestCalcSummary = {
+            classLabel,
+            servicesText: chosenList.map((i) => i.name).join(', '),
+            totalLabel: subtotal > 0 ? `от ${formatRub(finalSum)}${hasNegotiable ? ' + договорная' : ''}` : 'договорная',
+            svoActive
+          };
+        };
+
+        classBtns.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            classBtns.forEach((b) => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            mult = parseFloat(btn.getAttribute('data-mult')) || 1.0;
+            classLabel = btn.getAttribute('data-class-label') || 'Седан / Купе';
+            recalculate();
+          });
+        });
+
+        serviceChecks.forEach((cb) => cb.addEventListener('change', recalculate));
+        if (svoToggle) svoToggle.addEventListener('change', recalculate);
+
+        if (heroSvoBtn && svoToggle) {
+          heroSvoBtn.addEventListener('click', () => {
+            svoToggle.checked = true;
+            recalculate();
+            document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+          });
+        }
+
+        if (transferBtn) {
+          transferBtn.addEventListener('click', () => {
+            if (!latestCalcSummary || !latestCalcSummary.servicesText) return;
+            window.openGlblBooking({
+              service: 'Комплекс по расчёту калькулятора',
+              banner: `Перенесено из калькулятора: <strong>${latestCalcSummary.classLabel}</strong> • ${latestCalcSummary.totalLabel}${latestCalcSummary.svoActive ? ' (скидка 15% СВО)' : ''}`,
+              notes: `Класс: ${latestCalcSummary.classLabel}. Услуги: ${latestCalcSummary.servicesText}. Сумма: ${latestCalcSummary.totalLabel}${latestCalcSummary.svoActive ? ' (скидка 15% СВО)' : ''}.`
+            });
+          });
+        }
+
+        recalculate();
+      }
+
+      /* ----------------------------------------------------------------------
+         14. SLIDE-OVER BOOKING DRAWER + RUSSIAN PHONE MASK
+         ---------------------------------------------------------------------- */
+      function initBookingDrawer() {
+        const drawer = document.getElementById('bookingDrawer');
+        const backdrop = document.getElementById('drawerBackdrop');
+        const closeBtn = document.getElementById('closeDrawerBtn');
+        const form = document.getElementById('drawerBookingForm');
+        const errorBox = document.getElementById('drawerErrorBox');
+        const prefillBanner = document.getElementById('drawerPrefillBanner');
+        const serviceSelect = document.getElementById('bookServiceSelect');
+        const dateInput = document.getElementById('bookDateInput');
+        const phoneInput = document.getElementById('bookPhoneInput');
+        const notesInput = document.getElementById('bookNotesInput');
+        const slotBtns = document.querySelectorAll('#timeSlotsGroup .slot-chip');
+        const tgSubmitBtn = document.getElementById('submitBookingTelegram');
+
+        if (!drawer || !form) return;
+
+        let selectedSlot = '10:00';
+
+        if (dateInput) {
+          const now = new Date();
+          const todayStr = now.toISOString().split('T')[0];
+          dateInput.min = todayStr;
+          dateInput.value = now.getHours() >= 19
+            ? new Date(now.getTime() + 86400000).toISOString().split('T')[0]
+            : todayStr;
+        }
+
+        if (phoneInput) {
+          phoneInput.addEventListener('input', (e) => {
+            let digits = e.target.value.replace(/\D/g, '');
+            if (!digits) {
+              e.target.value = '';
+              return;
+            }
+            digits = (digits[0] === '8' || digits[0] === '7') ? '7' + digits.slice(1) : '7' + digits;
+            digits = digits.slice(0, 11);
+
+            let out = '+7';
+            if (digits.length > 1) out += ' (' + digits.slice(1, 4);
+            if (digits.length >= 4) out += ') ';
+            if (digits.length > 4) out += digits.slice(4, 7);
+            if (digits.length > 7) out += '-' + digits.slice(7, 9);
+            if (digits.length > 9) out += '-' + digits.slice(9, 11);
+            e.target.value = out;
+          });
+        }
+
+        slotBtns.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            slotBtns.forEach((b) => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            selectedSlot = btn.getAttribute('data-slot') || '10:00';
+          });
+        });
+
+        const openDrawer = (opts = {}) => {
+          errorBox.classList.add('hidden');
+          if (opts.service && serviceSelect) {
+            const match = Array.from(serviceSelect.options).find((o) => o.value === opts.service);
+            if (match) serviceSelect.value = opts.service;
+          }
+          if (opts.banner && prefillBanner) {
+            prefillBanner.innerHTML = opts.banner;
+            prefillBanner.classList.remove('hidden');
+          } else if (prefillBanner) {
+            prefillBanner.classList.add('hidden');
+          }
+          if (typeof opts.notes === 'string' && notesInput) {
+            notesInput.value = opts.notes;
+          }
+          drawer.classList.add('is-open');
+          backdrop.classList.add('is-open');
+          drawer.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        };
+
+        const closeDrawer = () => {
+          drawer.classList.remove('is-open');
+          backdrop.classList.remove('is-open');
+          drawer.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        };
+
+        window.openGlblBooking = openDrawer;
+
+        document.querySelectorAll('[data-open-booking]').forEach((trigger) => {
+          trigger.addEventListener('click', () => {
+            const prefill = trigger.getAttribute('data-prefill-service');
+            openDrawer(
+              prefill
+                ? { service: prefill, banner: `Выбрано направление: <strong>${prefill}</strong>` }
+                : {}
+            );
+          });
+        });
+
+        closeBtn.addEventListener('click', closeDrawer);
+        backdrop.addEventListener('click', closeDrawer);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
+        });
+
+        const validateAndBuildText = () => {
+          const car = (document.getElementById('bookCarInput')?.value || '').trim();
+          const date = (dateInput?.value || '').trim();
+          const name = (document.getElementById('bookNameInput')?.value || '').trim();
+          const phone = (phoneInput?.value || '').trim();
+          const notes = (notesInput?.value || '').trim() || 'Без комментариев';
+          const service = serviceSelect?.value || '';
+
+          if (!car || !date || !name || phone.replace(/\D/g, '').length < 11) {
+            errorBox.textContent = 'Пожалуйста, укажите автомобиль, дату, имя и корректный номер телефона (+7 ...).';
+            errorBox.classList.remove('hidden');
+            return null;
+          }
+
+          errorBox.classList.add('hidden');
+          return (
+            `Здравствуйте, Никита!\n` +
+            `Онлайн-запись в «Глобал Детейлинг» (Чекистов, 46Б):\n` +
+            `Услуга: ${service}\n` +
+            `Автомобиль: ${car}\n` +
+            `Дата и время: ${date} к ${selectedSlot}\n` +
+            `Имя: ${name}\n` +
+            `Телефон: ${phone}\n` +
+            `Комментарий: ${notes}`
+          );
+        };
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const text = validateAndBuildText();
+          if (!text) return;
+          window.open(`https://wa.me/79528222243?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+        });
+
+        if (tgSubmitBtn) {
+          tgSubmitBtn.addEventListener('click', () => {
+            const text = validateAndBuildText();
+            if (!text) return;
+            window.open(`https://t.me/glbl_detailing?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+          });
+        }
+      }
+
+      /* ----------------------------------------------------------------------
+         15. GALLERY CATEGORY FILTERS & KEYBOARD LIGHTBOX
+         ---------------------------------------------------------------------- */
+      function initGalleryFilterAndLightbox() {
+        const filterBtns = document.querySelectorAll('#galleryFilters .filter-tab-btn');
+        const allItems = Array.from(document.querySelectorAll('.gallery-item'));
+        const overlay = document.getElementById('galleryLightbox');
+        const lbImg = document.getElementById('lbImage');
+        const lbTitle = document.getElementById('lbTitle');
+        const lbSub = document.getElementById('lbSub');
+        const lbCounter = document.getElementById('lbCounter');
+        const btnClose = document.getElementById('lbCloseBtn');
+        const btnPrev = document.getElementById('lbPrevBtn');
+        const btnNext = document.getElementById('lbNextBtn');
+        const btnBook = document.getElementById('lbBookBtn');
+
+        if (!allItems.length) return;
+
+        // Animated Category Filtering
+        filterBtns.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            filterBtns.forEach((b) => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            const filter = btn.getAttribute('data-filter') || 'all';
+
+            allItems.forEach((item) => {
+              const matches = filter === 'all' || item.getAttribute('data-category') === filter;
+              item.classList.add('is-filtering-out');
+              setTimeout(() => {
+                item.style.display = matches ? '' : 'none';
+                requestAnimationFrame(() => {
+                  if (matches) item.classList.remove('is-filtering-out');
+                });
+              }, 160);
+            });
+          });
+        });
+
+        if (!overlay) return;
+
+        let visibleItems = allItems;
+        let idx = 0;
+
+        const render = () => {
+          const item = visibleItems[idx];
+          if (!item) return;
+          lbImg.src = item.getAttribute('data-src') || '';
+          lbImg.alt = item.getAttribute('data-title') || '';
+          lbTitle.textContent = item.getAttribute('data-title') || '';
+          lbSub.textContent = item.getAttribute('data-sub') || '';
+          lbCounter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(visibleItems.length).padStart(2, '0')}`;
+        };
+
+        const open = (clickedItem) => {
+          visibleItems = allItems.filter((el) => el.style.display !== 'none');
+          idx = Math.max(0, visibleItems.indexOf(clickedItem));
+          render();
+          overlay.classList.add('is-open');
+          overlay.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        };
+
+        const close = () => {
+          overlay.classList.remove('is-open');
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        };
+
+        const step = (dir) => {
+          if (!visibleItems.length) return;
+          idx = (idx + dir + visibleItems.length) % visibleItems.length;
+          render();
+        };
+
+        allItems.forEach((el) => el.addEventListener('click', () => open(el)));
+        btnClose.addEventListener('click', close);
+        btnPrev.addEventListener('click', () => step(-1));
+        btnNext.addEventListener('click', () => step(1));
+
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) close();
+        });
+
+        if (btnBook) {
+          btnBook.addEventListener('click', () => {
+            close();
+            if (typeof window.openGlblBooking === 'function') window.openGlblBooking();
+          });
+        }
+
+        document.addEventListener('keydown', (e) => {
+          if (!overlay.classList.contains('is-open')) return;
+          if (e.key === 'Escape') close();
+          if (e.key === 'ArrowLeft') step(-1);
+          if (e.key === 'ArrowRight') step(1);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

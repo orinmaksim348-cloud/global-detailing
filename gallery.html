@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Портфолио и фотогалерея | Глобал Детейлинг Краснодар</title>
+  <meta name="description"
+    content="Фотографии выполненных работ студии «Глобал Детейлинг» на Чекистов, 46Б: ремонт стёкол, полировка кузова, оклейка бронеплёнкой, фото рабочего бокса.">
+
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Unbounded:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="inner-page-body">
+
+  <div id="scrollProgress" aria-hidden="true"></div>
+  <div class="ambient-glow glow-red" aria-hidden="true"></div>
+  <div class="ambient-glow glow-graphite" aria-hidden="true"></div>
+  <div class="technical-grid-overlay" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="site-header" id="header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo-wrap">
+        <img src="assets/logo.jpg" alt="GLBL Detailing" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">ГЛОБАЛ</span>
+          <span class="brand-sub">ДЕТЕЙЛИНГ</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="index.html#about" class="nav-link">О студии</a>
+        <a href="index.html#packages" class="nav-link">Услуги</a>
+        <a href="index.html#transformation" class="nav-link">До / После</a>
+        <a href="calculator.html" class="nav-link">Калькулятор</a>
+        <a href="gallery.html" class="nav-link active">Портфолио</a>
+        <a href="booking.html" class="nav-link">Бронирование</a>
+        <a href="index.html#contacts" class="nav-link">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+79528222243" class="phone-link">
+          <i class="fa-solid fa-phone"></i>
+          <span>+7 (952) 822-22-43</span>
+        </a>
+        <a href="booking.html" class="btn btn-sm btn-brand">
+          <i class="fa-solid fa-calendar-check"></i> Запись онлайн
+        </a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Меню навигации" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- GALLERY CONTENT -->
+  <main class="page-content-wrapper">
+    <div class="container">
+
+      <div class="page-heading-block">
+        <div class="section-badge">Наши работы</div>
+        <h1 class="page-main-title">ПОРТФОЛИО И ФОТОГРАФИИ <br><span class="glbl-gradient-text">ИЗ БОКСА НА ЧЕКИСТОВ,
+            46Б</span></h1>
+        <p class="section-subtitle">
+          Реальные примеры выполненных работ по ремонту автостёкол, полировке кузова, бронированию полиуретаном и фото
+          нашей мастерской в ЮМР. Нажмите на фото для увеличения.
+        </p>
+      </div>
+
+      <!-- Gallery Filter Tabs -->
+      <div class="gallery-filter-tabs">
+        <button type="button" class="g-tab-btn active" data-filter="all">Все фото</button>
+        <button type="button" class="g-tab-btn" data-filter="cars">Автомобили и блеск</button>
+        <button type="button" class="g-tab-btn" data-filter="box">Бокс и процесс</button>
+        <button type="button" class="g-tab-btn" data-filter="optics">Фары и стёкла</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="portfolio-cards-grid">
+
+        <!-- Photo 1 -->
+        <div class="portfolio-item-card" data-category="cars">
+          <div class="card-img-wrap">
+            <img src="assets/bmw_clean.jpg" alt="BMW M5 Детейлинг Краснодар" loading="lazy">
+          </div>
+          <div class="card-info-pane">
+            <span class="card-tag">Кузов & PPF</span>
+            <h3>BMW M5 F90 LCI</h3>
+            <p>Комплексная восстановительная полировка кузова и защита передней части полиуретановой бронеплёнкой.</p>
+          </div>
+        </div>
+
+        <!-- Photo 2 -->
+        <div class="portfolio-item-card" data-category="cars">
+          <div class="card-img-wrap">
+            <img src="assets/bmw_photo2.jpg" alt="BMW 5 Series G30 Детейлинг" loading="lazy">
+          </div>
+          <div class="card-info-pane">
+            <span class="card-tag">Shadow Line & Полировка</span>
+            <h3>BMW 5 Series G30 LCI</h3>
+            <p>Восстановление глянца, антихром решётки радиатора и оклейка оптики полиуретановой плёнкой.</p>
+          </div>
+        </div>
+
+        <!-- Photo 3 -->
+        <div class="portfolio-item-card" data-category="box">
+          <div class="card-img-wrap">
+            <img src="https://avatars.mds.yandex.net/get-altay/17863912/2a0000019b7b120a8bbb76297bbc15ef8106/XXL"
+              alt="Студия Глобал Детейлинг" loading="lazy">
+          </div>
+          <div class="card-info-pane">
+            <span class="card-tag">Бокс студии</span>
+            <h3>Мастерская на Чекистов, 46Б</h3>
+            <p>Просторная чистая зона с контролируемым светом для точной инспекции ЛКП и ремонта стёкол.</p>
+          </div>
+        </div>
+
+        <!-- Photo 4 -->
+        <div class="portfolio-item-card" data-category="box">
+          <div class="card-img-wrap">
+            <img src="https://avatars.mds.yandex.net/get-altay/15434007/2a0000019b7b11d6cb6b749b8619d1284891/XXL"
+              alt="Рабочий свет в детейлинг студии" loading="lazy">
+          </div>
+          <div class="card-info-pane">
+            <span class="card-tag">Технологии</span>
+            <h3>Специализированное освещение</h3>
+            <p>Светодиодный свет высокой цветопередачи для выявления мельчайших голограмм и микрорисок.</p>
+          </div>
+        </div>
+
+        <!-- Photo 5 -->
+        <div class="portfolio-item-card" data-category="optics">
+          <div class="card-img-wrap">
+            <img src="https://avatars.mds.yandex.net/get-altay/16480821/2a0000019b7b12217f2ac5c9522b175857ff/XXL"
+              alt="Полировка элементов" loading="lazy">
+          </div>
+          <div class="card-info-pane">
+            <span class="card-tag">Процесс</span>
+            <h3>Подготовка и защита элементов</h3>
+            <p>Деликатная маскировка резиновых и пластиковых уплотнителей перед началом полировочных работ.</p>
+          </div>
+        </div>
+
+        <!-- Photo 6 -->
+        <div class="portfolio-item-card" data-category="cars">
+          <div class="card-img-wrap">
+            <img src="https://avatars.mds.yandex.net/get-altay/16480550/2a0000019cb021fbb9e5da0a4564344411a3/XXL"
+              alt="Зеркальный блеск кузова" loading="lazy">
+          </div>
+          <div class="card-info-pane">
+            <span class="card-tag">Результат</span>
+            <h3>Зеркальный блеск после полировки</h3>
+            <p>Глубокий зеркальный финиш лакокрасочного покрытия без эффекта голограмм.</p>
+          </div>
+        </div>
+
+        <!-- Photo 7 -->
+        <div class="portfolio-item-card" data-category="optics">
+          <div class="card-img-wrap">
+            <img src="https://avatars.mds.yandex.net/get-altay/17753003/2a0000019cb0222412229deebcebe8c0d023/XXL"
+              alt="Восстановление оптики" loading="lazy">
+          </div>
+          <div class="card-info-pane">
+            <span class="card-tag">Оптика</span>
+            <h3>Восстановление прозрачности фар</h3>
+            <p>Удаление пожелтения от южного солнца и консервация защитной полиуретановой бронеплёнкой.</p>
+          </div>
+        </div>
+
+        <!-- Photo 8 -->
+        <div class="portfolio-item-card" data-category="box">
+          <div class="card-img-wrap">
+            <img src="https://avatars.mds.yandex.net/get-altay/16480550/2a0000019cb0227a73ed7c0808f10c4e184b/XXL"
+              alt="Выдача готового авто" loading="lazy">
+          </div>
+          <div class="card-info-pane">
+            <span class="card-tag">Выдача авто</span>
+            <h3>Готовый результат для клиента</h3>
+            <p>Передача автомобиля владельцу с рекомендациями по правильному уходу за защитными покрытиями.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Banner -->
+      <div class="gallery-cta-banner">
+        <div>
+          <h3>Хотите такой же результат для своего авто?</h3>
+          <p>Приезжайте на бесплатный осмотр в Юбилейный микрорайон, проспект Чекистов, 46Б.</p>
+        </div>
+        <div class="banner-btns">
+          <a href="booking.html" class="btn btn-lg btn-brand">Забронировать визит</a>
+          <a href="https://wa.me/79528222243?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!+%D0%A3%D0%B2%D0%B8%D0%B4%D0%B5%D0%BB+%D0%B2%D0%B0%D1%88%D0%B8+%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B+%D0%B2+%D0%BF%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE"
+            target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-wa">Написать в WhatsApp</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="glbl-lightbox" id="glblLightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+    <div class="lightbox-dialog">
+      <div class="lightbox-media">
+        <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Закрыть">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Предыдущее фото">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <img id="lightboxImg" src="" alt="">
+        <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Следующее фото">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="lightbox-footer">
+        <div class="lightbox-caption">
+          <span class="card-tag" id="lightboxTag"></span>
+          <h3 id="lightboxTitle"></h3>
+          <p id="lightboxDesc"></p>
+        </div>
+        <a href="booking.html" class="btn btn-sm btn-brand">
+          <i class="fa-solid fa-calendar-check"></i> Записаться на эту услугу
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-col">
+        <div class="brand-logo-wrap">
+          <img src="assets/logo.jpg" alt="GLBL Detailing" class="brand-logo-img">
+          <div class="brand-text">
+            <span class="brand-name">ГЛОБАЛ</span>
+            <span class="brand-sub">ДЕТЕЙЛИНГ</span>
+          </div>
+        </div>
+        <p class="footer-text">
+          Студия профессионального детейлинга и автостёкол в Краснодаре. Юбилейный микрорайон, проспект Чекистов, 46Б.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Разделы сайта</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="index.html#about">О нас</a></li>
+          <li><a href="index.html#packages">Услуги</a></li>
+          <li><a href="index.html#transformation">До / После</a></li>
+          <li><a href="calculator.html">Калькулятор</a></li>
+          <li><a href="gallery.html">Портфолио</a></li>
+          <li><a href="booking.html">Онлайн-бронирование</a></li>
+          <li><a href="index.html#contacts">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <p class="footer-contact"><i class="fa-solid fa-location-dot"></i> Краснодар, пр-т Чекистов, 46Б</p>
+        <p class="footer-contact"><i class="fa-solid fa-phone"></i> +7 (952) 822-22-43</p>
+        <p class="footer-contact"><i class="fa-solid fa-clock"></i> Ежедневно: 10:00 – 21:00</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <span>© 2026 «Глобал Детейлинг» (GLBL). Все права защищены.</span>
+        <span>Краснодар, Юбилейный мкр, проспект Чекистов, 46Б.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

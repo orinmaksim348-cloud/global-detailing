@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор стоимости | Глобал Детейлинг (GLBL)</title>
+  <meta name="description"
+    content="Рассчитайте стоимость детейлинга, ремонта стёкол, полировки и бронирования в студии «Глобал Детейлинг». Краснодар, пр-т Чекистов, 46Б.">
+
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Unbounded:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="inner-page-body">
+
+  <div id="scrollProgress" aria-hidden="true"></div>
+  <div class="ambient-glow glow-red" aria-hidden="true"></div>
+  <div class="ambient-glow glow-graphite" aria-hidden="true"></div>
+  <div class="technical-grid-overlay" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="site-header" id="header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo-wrap">
+        <img src="assets/logo.jpg" alt="GLBL Detailing Логотип" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">ГЛОБАЛ</span>
+          <span class="brand-sub">ДЕТЕЙЛИНГ</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="index.html#about" class="nav-link">О студии</a>
+        <a href="index.html#packages" class="nav-link">Услуги</a>
+        <a href="index.html#transformation" class="nav-link">До / После</a>
+        <a href="calculator.html" class="nav-link active">Калькулятор</a>
+        <a href="gallery.html" class="nav-link">Портфолио</a>
+        <a href="booking.html" class="nav-link">Бронирование</a>
+        <a href="index.html#contacts" class="nav-link">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+79528222243" class="phone-link">
+          <i class="fa-solid fa-phone"></i>
+          <span>+7 (952) 822-22-43</span>
+        </a>
+        <a href="booking.html" class="btn btn-sm btn-brand">
+          <i class="fa-solid fa-calendar-check"></i> Запись онлайн
+        </a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Меню навигации" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CALCULATOR PAGE CONTENT -->
+  <main class="page-content-wrapper">
+    <div class="container">
+
+      <div class="page-heading-block">
+        <div class="section-badge">Онлайн-калькулятор</div>
+        <h1 class="page-main-title">РАСЧЁТ СТОИМОСТИ ДЕТЕЙЛИНГА <br><span class="glbl-gradient-text">С ВЫБОРОМ КЛАССА
+            АВТО И УСЛУГ</span></h1>
+        <p class="section-subtitle">
+          Выберите класс вашего автомобиля, отметьте необходимые работы и отправьте расчёт мастеру Никите или перенесите
+          его в форму онлайн-записи.
+        </p>
+      </div>
+
+      <div class="glass-section-card" style="max-width: 960px; margin: 0 auto;">
+        <div class="calc-inner-box">
+
+          <!-- Step 1: Car Class -->
+          <div class="calc-step-row">
+            <label class="calc-group-label">1. Выберите класс автомобиля:</label>
+            <div class="car-classes-selector">
+
+              <button type="button" class="car-class-card active" data-class="sedan" data-mult="1.0">
+                <div class="car-silhouette-svg">
+                  <svg viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 36H148M28 36C28 32 32 29 36 29C40 29 44 32 44 36M116 36C116 32 120 29 124 29C128 29 132 32 132 36"
+                      stroke="currentColor" stroke-width="2" />
+                    <path d="M14 34L22 30L34 29L52 23L72 16L102 16L122 23L136 28L146 32V35H14V34Z" stroke="currentColor"
+                      stroke-width="2" stroke-linejoin="round" />
+                    <path d="M58 23L74 18H98L114 23" stroke="currentColor" stroke-width="1.5" />
+                    <circle cx="36" cy="35" r="7" stroke="currentColor" stroke-width="2" />
+                    <circle cx="124" cy="35" r="7" stroke="currentColor" stroke-width="2" />
+                  </svg>
+                </div>
+                <div class="class-text">
+                  <span class="class-name">Седан / Купе</span>
+                  <span class="class-sub">BMW 5/3, Mercedes C/E, Audi A4/A6</span>
+                </div>
+              </button>
+
+              <button type="button" class="car-class-card" data-class="crossover" data-mult="1.2">
+                <div class="car-silhouette-svg">
+                  <svg viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M10 38H150M26 38C26 33 30 30 35 30C40 30 44 33 44 38M116 38C116 33 120 30 125 30C130 30 134 33 134 38"
+                      stroke="currentColor" stroke-width="2" />
+                    <path d="M12 35L20 30L32 28L48 22L66 12L108 12L126 21L138 27L148 33V37H12V35Z" stroke="currentColor"
+                      stroke-width="2" stroke-linejoin="round" />
+                    <path d="M54 22L68 15H104L118 22" stroke="currentColor" stroke-width="1.5" />
+                    <circle cx="35" cy="37" r="8" stroke="currentColor" stroke-width="2" />
+                    <circle cx="125" cy="37" r="8" stroke="currentColor" stroke-width="2" />
+                  </svg>
+                </div>
+                <div class="class-text">
+                  <span class="class-name">Кроссовер</span>
+                  <span class="class-sub">BMW X3/X5, Porsche Macan, RAV4</span>
+                </div>
+              </button>
+
+              <button type="button" class="car-class-card" data-class="suv" data-mult="1.4">
+                <div class="car-silhouette-svg">
+                  <svg viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8 40H152M24 40C24 34 29 30 35 30C41 30 46 34 46 40M114 40C114 34 119 30 125 30C131 30 136 34 136 40"
+                      stroke="currentColor" stroke-width="2" />
+                    <path d="M10 37L18 30L30 28L46 22L62 9L118 9L132 20L142 27L150 35V39H10V37Z" stroke="currentColor"
+                      stroke-width="2" stroke-linejoin="round" />
+                    <path d="M50 21L64 12H114L124 21" stroke="currentColor" stroke-width="1.5" />
+                    <circle cx="35" cy="39" r="9" stroke="currentColor" stroke-width="2" />
+                    <circle cx="125" cy="39" r="9" stroke="currentColor" stroke-width="2" />
+                  </svg>
+                </div>
+                <div class="class-text">
+                  <span class="class-name">Внедорожник / Минивэн</span>
+                  <span class="class-sub">BMW X7, Land Cruiser, V-Класс</span>
+                </div>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Step 2: Color Swatch -->
+          <div class="calc-step-row">
+            <div class="color-picker-header">
+              <label class="calc-group-label" style="margin-bottom: 0;">2. Цвет кузова (для подбора паст и
+                плёнки):</label>
+              <span class="color-chosen-name" id="colorNameDisplay">Белый альпийский</span>
+            </div>
+            <div class="color-swatches-row">
+              <button type="button" class="color-pill active" style="--color-preview: #f2f4f8;" data-color="#f2f4f8"
+                data-name="Белый альпийский" aria-label="Белый альпийский"></button>
+              <button type="button" class="color-pill" style="--color-preview: #12141a;" data-color="#12141a"
+                data-name="Чёрный сапфир" aria-label="Чёрный сапфир"></button>
+              <button type="button" class="color-pill" style="--color-preview: #475569;" data-color="#475569"
+                data-name="Серый графит" aria-label="Серый графит"></button>
+              <button type="button" class="color-pill" style="--color-preview: #1e3a8a;" data-color="#1e3a8a"
+                data-name="Синий Танзанит" aria-label="Синий Танзанит"></button>
+              <button type="button" class="color-pill" style="--color-preview: #991b1b;" data-color="#991b1b"
+                data-name="Красный Имола" aria-label="Красный Имола"></button>
+              <button type="button" class="color-pill" style="--color-preview: #14532d;" data-color="#14532d"
+                data-name="Зелёный Британский" aria-label="Зелёный Британский"></button>
+            </div>
+          </div>
+
+          <!-- Step 3: Services -->
+          <div class="calc-step-row">
+            <label class="calc-group-label">3. Отметьте необходимые работы:</label>
+            <div class="calc-checkbox-grid">
+
+              <label class="calc-check-card">
+                <input type="checkbox" name="calc_srv" value="glass_chip" data-base="1500" checked>
+                <div class="check-body">
+                  <span class="check-title">Ремонт скола / трещины стекла</span>
+                  <span class="check-price">от 1 500 ₽</span>
+                </div>
+              </label>
+
+              <label class="calc-check-card">
+                <input type="checkbox" name="calc_srv" value="headlights" data-base="3000" checked>
+                <div class="check-body">
+                  <span class="check-title">Полировка + бронирование фар</span>
+                  <span class="check-price">от 3 000 ₽</span>
+                </div>
+              </label>
+
+              <label class="calc-check-card">
+                <input type="checkbox" name="calc_srv" value="polish" data-base="12000">
+                <div class="check-body">
+                  <span class="check-title">Восстановительная полировка кузова</span>
+                  <span class="check-price">от 12 000 ₽</span>
+                </div>
+              </label>
+
+              <label class="calc-check-card">
+                <input type="checkbox" name="calc_srv" value="ppf_risk" data-base="35000">
+                <div class="check-body">
+                  <span class="check-title">Бронирование зон риска (PPF плёнка)</span>
+                  <span class="check-price">от 35 000 ₽</span>
+                </div>
+              </label>
+
+              <label class="calc-check-card">
+                <input type="checkbox" name="calc_srv" value="dry_clean" data-base="8000">
+                <div class="check-body">
+                  <span class="check-title">Комплексная химчистка салона</span>
+                  <span class="check-price">от 8 000 ₽</span>
+                </div>
+              </label>
+
+              <label class="calc-check-card">
+                <input type="checkbox" name="calc_srv" value="antichrome" data-base="9000">
+                <div class="check-body">
+                  <span class="check-title">Антихром элементов кузова</span>
+                  <span class="check-price">от 9 000 ₽</span>
+                </div>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- Total Bar -->
+          <div class="calc-summary-bar">
+            <div class="summary-info">
+              <span class="summary-label">Ориентировочная сумма комплекса:</span>
+              <div class="summary-amount-row">
+                <span class="summary-amount" id="calcTotalDisplay">4 500 ₽</span>
+                <span class="summary-old-amount" id="calcOldTotalDisplay" style="display: none;"></span>
+              </div>
+              <div class="calc-discount-pill is-hint" id="calcDiscountBadge">
+                <i class="fa-solid fa-percent"></i> Выберите ещё 1 услугу, чтобы получить пакетную скидку 15%
+              </div>
+              <span class="summary-note">Срок выполнения: от 1 до 2 дней. Фиксация стоимости до начала работ</span>
+            </div>
+
+            <div class="summary-actions">
+              <a href="#" id="sendWhatsAppBtn" target="_blank" rel="noopener noreferrer" class="btn btn-wa">
+                <i class="fa-brands fa-whatsapp"></i> В WhatsApp
+              </a>
+              <a href="#" id="sendTelegramBtn" target="_blank" rel="noopener noreferrer" class="btn btn-tg">
+                <i class="fa-brands fa-telegram"></i> В Telegram
+              </a>
+              <a href="booking.html" id="calcBookBtn" class="btn btn-brand">
+                <i class="fa-solid fa-calendar-check"></i> Забронировать визит
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-col">
+        <div class="brand-logo-wrap">
+          <img src="assets/logo.jpg" alt="GLBL Detailing" class="brand-logo-img">
+          <div class="brand-text">
+            <span class="brand-name">ГЛОБАЛ</span>
+            <span class="brand-sub">ДЕТЕЙЛИНГ</span>
+          </div>
+        </div>
+        <p class="footer-text">
+          Студия профессионального детейлинга и автостёкол в Краснодаре. Юбилейный микрорайон, проспект Чекистов, 46Б.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Разделы сайта</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="index.html#about">О нас</a></li>
+          <li><a href="index.html#packages">Услуги</a></li>
+          <li><a href="index.html#transformation">До / После</a></li>
+          <li><a href="calculator.html">Калькулятор</a></li>
+          <li><a href="gallery.html">Портфолио</a></li>
+          <li><a href="booking.html">Онлайн-бронирование</a></li>
+          <li><a href="index.html#contacts">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <p class="footer-contact"><i class="fa-solid fa-location-dot"></i> Краснодар, пр-т Чекистов, 46Б</p>
+        <p class="footer-contact"><i class="fa-solid fa-phone"></i> +7 (952) 822-22-43</p>
+        <p class="footer-contact"><i class="fa-solid fa-clock"></i> Ежедневно: 10:00 – 21:00</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <span>© 2026 «Глобал Детейлинг» (GLBL). Все права защищены.</span>
+        <span>Краснодар, Юбилейный мкр, проспект Чекистов, 46Б.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
